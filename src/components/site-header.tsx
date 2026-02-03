@@ -1,10 +1,14 @@
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { getSession } from "@/lib/session";
 import { countUnreadThreads } from "@/lib/unread";
 import { countUnreadNotifications } from "@/lib/notifications";
 import { NoticeBanner } from "@/components/notice-banner";
 
 export async function SiteHeader() {
+  // Mark this Server Component as dynamic (per-request) so auth state updates immediately.
+  cookies();
+
   const session = await getSession();
   const userId = (session as any)?.user?.id as string | undefined;
   const bannedAt = (session as any)?.user?.bannedAt as Date | undefined;
