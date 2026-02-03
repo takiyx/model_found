@@ -26,35 +26,35 @@ export async function SiteHeader() {
         ) : null}
 
         <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <Link href="/" className="font-semibold tracking-tight">
+        <div className="flex min-w-0 items-center gap-3">
+          <Link href="/" className="whitespace-nowrap font-semibold tracking-tight">
             モデルひろば（モダン）
           </Link>
-          <nav className="hidden items-center gap-3 text-sm text-zinc-600 sm:flex">
-            <Link className="hover:text-zinc-900" href="/pg/east">
+          <nav className="hidden min-w-0 items-center gap-3 overflow-x-auto text-sm text-zinc-600 sm:flex">
+            <Link className="whitespace-nowrap hover:text-zinc-900" href="/pg/east">
               東日本
             </Link>
-            <Link className="hover:text-zinc-900" href="/pg/west">
+            <Link className="whitespace-nowrap hover:text-zinc-900" href="/pg/west">
               西日本
             </Link>
-            <Link className="hover:text-zinc-900" href="/rules">
+            <Link className="whitespace-nowrap hover:text-zinc-900" href="/rules">
               ルール
             </Link>
-            <Link className="hover:text-zinc-900" href="/tags">
+            <Link className="whitespace-nowrap hover:text-zinc-900" href="/tags">
               タグ
             </Link>
-            <Link className="hover:text-zinc-900" href="/admin/picks">
+            <Link className="whitespace-nowrap hover:text-zinc-900" href="/admin/picks">
               運営
             </Link>
-            <Link className="hover:text-zinc-900" href="/settings/security">
+            <Link className="whitespace-nowrap hover:text-zinc-900" href="/settings/security">
               セキュリティ
             </Link>
           </nav>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center justify-end gap-2">
           <Link
-            className="rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
+            className="whitespace-nowrap rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
             href="/posts/new"
           >
             新規投稿
@@ -63,7 +63,7 @@ export async function SiteHeader() {
           {session?.user ? (
             <>
               <Link
-                className="relative rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
+                className="relative whitespace-nowrap rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
                 href="/inbox"
               >
                 受信箱
@@ -100,7 +100,7 @@ export async function SiteHeader() {
                 {(session as any).user?.name ?? (session as any).user?.email}
               </span>
               <Link
-                className="rounded-full bg-zinc-900 px-3 py-1.5 text-sm text-white hover:bg-zinc-800"
+                className="whitespace-nowrap rounded-full bg-zinc-900 px-3 py-1.5 text-sm text-white hover:bg-zinc-800"
                 href="/logout"
               >
                 ログアウト
@@ -109,19 +109,19 @@ export async function SiteHeader() {
           ) : (
             <>
               <Link
-                className="rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
+                className="whitespace-nowrap rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
                 href="/login?callbackUrl=/inbox"
               >
                 受信箱
               </Link>
               <Link
-                className="rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
+                className="whitespace-nowrap rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
                 href="/login"
               >
                 ログイン
               </Link>
               <Link
-                className="rounded-full bg-zinc-900 px-3 py-1.5 text-sm text-white hover:bg-zinc-800"
+                className="whitespace-nowrap rounded-full bg-zinc-900 px-3 py-1.5 text-sm text-white hover:bg-zinc-800"
                 href="/signup"
               >
                 新規登録
