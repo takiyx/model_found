@@ -63,8 +63,20 @@ export async function SiteHeader() {
                   ) : null}
                 </Link>
                 <details className="relative">
-                  <summary className="list-none whitespace-nowrap rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50 cursor-pointer">
-                    メニュー
+                  <summary className="list-none cursor-pointer whitespace-nowrap rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50">
+                    <span className="inline-flex items-center gap-2">
+                      <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-zinc-900 text-xs font-semibold text-white">
+                        {String(((session as any).user?.name ?? (session as any).user?.email ?? "U").trim().charAt(0)).toUpperCase()}
+                      </span>
+                      <span className="hidden sm:inline">
+                        {(session as any).user?.name ?? (session as any).user?.email}
+                      </span>
+                      {unreadNoti > 0 ? (
+                        <span className="inline-flex min-w-5 items-center justify-center rounded-full bg-red-600 px-1.5 text-[10px] font-semibold leading-5 text-white">
+                          {unreadNoti > 9 ? "9+" : unreadNoti}
+                        </span>
+                      ) : null}
+                    </span>
                   </summary>
                   <div className="absolute right-0 z-50 mt-2 w-56 overflow-hidden rounded-2xl border bg-white shadow-lg">
                     <div className="px-3 py-2 text-xs text-zinc-500">
