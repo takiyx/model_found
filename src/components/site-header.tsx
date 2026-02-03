@@ -62,38 +62,39 @@ export async function SiteHeader() {
                     </span>
                   ) : null}
                 </Link>
-                <Link
-                  className="relative hidden rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50 sm:inline-flex"
-                  href="/notifications"
-                >
-                  通知
-                  {unreadNoti > 0 ? (
-                    <span className="ml-2 inline-flex min-w-5 items-center justify-center rounded-full bg-red-600 px-1.5 text-[10px] font-semibold leading-5 text-white">
-                      {unreadNoti > 9 ? "9+" : unreadNoti}
-                    </span>
-                  ) : null}
-                </Link>
-                <Link
-                  className="hidden rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50 sm:inline-flex"
-                  href="/favorites"
-                >
-                  保存
-                </Link>
-                <Link
-                  className="hidden rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50 sm:inline-flex"
-                  href={`/u/${userId}`}
-                >
-                  プロフィール
-                </Link>
-                <span className="hidden text-sm text-zinc-600 sm:inline">
-                  {(session as any).user?.name ?? (session as any).user?.email}
-                </span>
-                <Link
-                  className="whitespace-nowrap rounded-full bg-zinc-900 px-3 py-1.5 text-sm text-white hover:bg-zinc-800"
-                  href="/logout"
-                >
-                  ログアウト
-                </Link>
+                <details className="relative">
+                  <summary className="list-none whitespace-nowrap rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50 cursor-pointer">
+                    メニュー
+                  </summary>
+                  <div className="absolute right-0 z-50 mt-2 w-56 overflow-hidden rounded-2xl border bg-white shadow-lg">
+                    <div className="px-3 py-2 text-xs text-zinc-500">
+                      {(session as any).user?.name ?? (session as any).user?.email}
+                    </div>
+                    <div className="h-px bg-zinc-100" />
+                    <div className="grid">
+                      <Link className="px-3 py-2 text-sm hover:bg-zinc-50" href="/notifications">
+                        <span className="flex items-center justify-between">
+                          <span>通知</span>
+                          {unreadNoti > 0 ? (
+                            <span className="inline-flex min-w-5 items-center justify-center rounded-full bg-red-600 px-1.5 text-[10px] font-semibold leading-5 text-white">
+                              {unreadNoti > 9 ? "9+" : unreadNoti}
+                            </span>
+                          ) : null}
+                        </span>
+                      </Link>
+                      <Link className="px-3 py-2 text-sm hover:bg-zinc-50" href="/favorites">
+                        保存
+                      </Link>
+                      <Link className="px-3 py-2 text-sm hover:bg-zinc-50" href={`/u/${userId}`}>
+                        プロフィール
+                      </Link>
+                    </div>
+                    <div className="h-px bg-zinc-100" />
+                    <Link className="px-3 py-2 text-sm hover:bg-zinc-50" href="/logout">
+                      ログアウト
+                    </Link>
+                  </div>
+                </details>
               </>
             ) : (
               <>
