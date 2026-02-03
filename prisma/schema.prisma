@@ -1,0 +1,356 @@
+// Prisma schema for Model Hiroba (modern clone)
+// Docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Region {
+  EAST
+  WEST
+}
+
+enum Prefecture {
+  HOKKAIDO
+  AOMORI
+  IWATE
+  MIYAGI
+  AKITA
+  YAMAGATA
+  FUKUSHIMA
+  IBARAKI
+  TOCHIGI
+  GUNMA
+  SAITAMA
+  CHIBA
+  TOKYO
+  KANAGAWA
+  NIIGATA
+  TOYAMA
+  ISHIKAWA
+  FUKUI
+  YAMANASHI
+  NAGANO
+  GIFU
+  SHIZUOKA
+  AICHI
+  MIE
+  SHIGA
+  KYOTO
+  OSAKA
+  HYOGO
+  NARA
+  WAKAYAMA
+  TOTTORI
+  SHIMANE
+  OKAYAMA
+  HIROSHIMA
+  YAMAGUCHI
+  TOKUSHIMA
+  KAGAWA
+  EHIME
+  KOCHI
+  FUKUOKA
+  SAGA
+  NAGASAKI
+  KUMAMOTO
+  OITA
+  MIYAZAKI
+  KAGOSHIMA
+  OKINAWA
+}
+
+enum PostMode {
+  PHOTOGRAPHER
+  MODEL
+}
+
+enum NotificationKind {
+  FAVORITE_USER
+  FAVORITE_POST
+  THREAD_MESSAGE
+}
+
+enum ReportReason {
+  SPAM
+  SCAM
+  HARASSMENT
+  IMPERSONATION
+  ILLEGAL
+  UNDERAGE
+  OTHER
+}
+
+enum ReportStatus {
+  OPEN
+  RESOLVED
+}
+
+model User {
+  id           String @id @default(cuid())
+  email        String @unique
+  passwordHash String
+
+  displayName String
+  bio         String @default("")
+
+  // Profile (MVP)
+  prefecture      Prefecture?
+  basePlace       String      @default("") // 例：渋谷 / 新宿
+  interests       String      @default("") // 例：ポートレート, ストリート
+  avatarUrl       String      @default("")
+  websiteUrl      String      @default("")
+  instagramHandle String      @default("")
+  xHandle         String      @default("")
+  portfolioText   String      @default("")
+  // JSON string array of image URLs (local uploads)
+  portfolioImages String      @default("[]")
+
+  // Shooting conditions (for trust / clarity)
+  shootOkText String @default("")
+  shootNgText String @default("")
+
+  isPhotographer Boolean @default(true)
+  isModel        Boolean @default(true)
+
+  posts Post[]
+
+  favoritePosts FavoritePost[]
+  favoriteUsers FavoriteUser[]
+  favoritedBy   FavoriteUser[] @relation("FavoriteUserTarget")
+
+  notifications       Notification[]
+  notificationsFromMe Notification[] @relation("NotificationActor")
+
+  reportsFiled   Report[] @relation("ReportReporter")
+  reportsAgainst Report[] @relation("ReportTarget")
+
+  blocksOutgoing BlockUser[] @relation("BlockUserBlocker")
+  blocksIncoming BlockUser[] @relation("BlockUserBlocked")
+
+  threadParticipants ThreadParticipant[]
+  sentMessages       Message[]           @relation("MessageSender")
+
+  acceptedAdultAt DateTime?
+
+  bannedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id         String     @id @default(cuid())
+  region     Region
+  prefecture Prefecture @default(TOKYO)
+  mode       PostMode
+
+  title String
+  body  String
+
+  // More structured fields (MVP)
+  reward      String @default("") // 報酬（例：交通費+¥5,000）
+  place       String @default("") // 場所（例：渋谷 / 新宿）
+  dateText    String @default("") // 日時（自由記述）
+  tags        String @default("") // タグ（カンマ区切り）
+  contactText String @default("") // 連絡先（例：メール / SNS / 站外連絡）
+
+  isPublic Boolean @default(true)
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  images    PostImage[]
+  threads   Thread[]
+  favorites FavoritePost[]
+
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  notifications Notification[]
+  reports       Report[]
+  weeklyPicks   WeeklyPick[]
+
+  @@index([region, createdAt])
+  @@index([authorId, createdAt])
+}
+
+model PostImage {
+  id     String @id @default(cuid())
+  postId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  url String
+  alt String @default("")
+
+  createdAt DateTime @default(now())
+
+  @@index([postId])
+}
+
+model Thread {
+  id String @id @default(cuid())
+
+  // Thread is associated with a specific post (MVP: contact about a post)
+  postId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  participants ThreadParticipant[]
+  messages     Message[]
+
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  notifications Notification[]
+
+  @@index([postId, updatedAt])
+}
+
+model ThreadParticipant {
+  threadId String
+  userId   String
+
+  thread Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Unread tracking (MVP): last time user opened the thread
+  lastReadAt DateTime @default(now())
+
+  createdAt DateTime @default(now())
+
+  @@id([threadId, userId])
+  @@index([userId])
+}
+
+model Message {
+  id       String @id @default(cuid())
+  threadId String
+  senderId String
+
+  thread Thread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  sender User   @relation("MessageSender", fields: [senderId], references: [id], onDelete: Cascade)
+
+  body String
+
+  createdAt DateTime @default(now())
+
+  @@index([threadId, createdAt])
+  @@index([senderId, createdAt])
+}
+
+model FavoritePost {
+  userId String
+  postId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@id([userId, postId])
+  @@index([postId])
+  @@index([userId, createdAt])
+}
+
+model FavoriteUser {
+  userId       String
+  targetUserId String
+
+  user       User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  targetUser User @relation("FavoriteUserTarget", fields: [targetUserId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@id([userId, targetUserId])
+  @@index([targetUserId])
+  @@index([userId, createdAt])
+}
+
+model Notification {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  kind NotificationKind
+
+  actorId String?
+  actor   User?   @relation("NotificationActor", fields: [actorId], references: [id], onDelete: SetNull)
+
+  postId String?
+  post   Post?   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  threadId String?
+  thread   Thread? @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  // For message notifications
+  snippet String @default("")
+
+  readAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, kind, threadId])
+  @@index([userId, readAt, updatedAt])
+  @@index([kind, updatedAt])
+}
+
+model Report {
+  id String @id @default(cuid())
+
+  reporterId String
+  reporter   User   @relation("ReportReporter", fields: [reporterId], references: [id], onDelete: Cascade)
+
+  targetUserId String
+  targetUser   User   @relation("ReportTarget", fields: [targetUserId], references: [id], onDelete: Cascade)
+
+  postId String?
+  post   Post?   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  reason ReportReason
+  detail String       @default("")
+
+  status     ReportStatus @default(OPEN)
+  resolvedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([targetUserId, status, updatedAt])
+  @@index([postId, status, updatedAt])
+  @@index([reporterId, createdAt])
+}
+
+model BlockUser {
+  blockerId String
+  blockedId String
+
+  blocker User @relation("BlockUserBlocker", fields: [blockerId], references: [id], onDelete: Cascade)
+  blocked User @relation("BlockUserBlocked", fields: [blockedId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@id([blockerId, blockedId])
+  @@index([blockedId])
+  @@index([blockerId, createdAt])
+}
+
+model WeeklyPick {
+  id String @id @default(cuid())
+
+  tag      String
+  position Int
+
+  postId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([tag, postId])
+  @@index([tag, position])
+}

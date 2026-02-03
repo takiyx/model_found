@@ -1,0 +1,27 @@
+model FavoritePost {
+  userId String
+  postId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@id([userId, postId])
+  @@index([postId])
+  @@index([userId, createdAt])
+}
+
+model FavoriteUser {
+  userId       String
+  targetUserId String
+
+  user       User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  targetUser User @relation("FavoriteUserTarget", fields: [targetUserId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@id([userId, targetUserId])
+  @@index([targetUserId])
+  @@index([userId, createdAt])
+}
