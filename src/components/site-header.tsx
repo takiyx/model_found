@@ -37,9 +37,7 @@ export async function SiteHeader() {
               <Link className="whitespace-nowrap hover:text-zinc-900" href="/tags">
                 タグ
               </Link>
-              <Link className="whitespace-nowrap hover:text-zinc-900" href="/settings/security">
-                セキュリティ
-              </Link>
+              {/* セキュリティはフッターへ移動 */}
             </nav>
           </div>
 

@@ -49,6 +49,17 @@ export default function RootLayout({
                   当サイトには成人向け（性的表現を含む）の募集・表現が含まれる可能性があります。
                   18歳未満の方はご利用いただけません。
                 </p>
+                <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs">
+                  <a className="hover:text-zinc-900 underline-offset-2 hover:underline" href="/rules">
+                    ルール
+                  </a>
+                  <a className="hover:text-zinc-900 underline-offset-2 hover:underline" href="/tags">
+                    タグ
+                  </a>
+                  <a className="hover:text-zinc-900 underline-offset-2 hover:underline" href="/settings/security">
+                    セキュリティ
+                  </a>
+                </div>
               </div>
             </div>
           </footer>
