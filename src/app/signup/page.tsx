@@ -58,7 +58,9 @@ export default function SignupPage() {
             router.push("/login");
             return;
           }
-          router.push("/");
+          // Ensure Server Components (e.g. header) re-render with the new session.
+          router.replace("/");
+          router.refresh();
         }}
       >
         <label className="grid gap-1 text-sm">

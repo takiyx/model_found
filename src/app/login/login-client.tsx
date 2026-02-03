@@ -33,7 +33,9 @@ export function LoginClient({ callbackUrl }: { callbackUrl: string }) {
             setError("ログインできません（メール/パスワード、またはアカウント制限）");
             return;
           }
-          router.push(callbackUrl);
+          // Ensure Server Components (e.g. header) re-render with the new session.
+          router.replace(callbackUrl);
+          router.refresh();
         }}
       >
         <label className="grid gap-1 text-sm">
