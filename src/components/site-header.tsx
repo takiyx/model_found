@@ -26,109 +26,100 @@ export async function SiteHeader() {
         ) : null}
 
         <div className="flex items-center justify-between gap-3">
-        <div className="flex min-w-0 items-center gap-3">
-          <Link href="/" className="whitespace-nowrap font-semibold tracking-tight">
-            モデルひろば（モダン）
-          </Link>
-          <nav className="hidden min-w-0 items-center gap-3 overflow-x-auto text-sm text-zinc-600 sm:flex">
-            <Link className="whitespace-nowrap hover:text-zinc-900" href="/pg/east">
-              東日本
+          <div className="flex min-w-0 items-center gap-3">
+            <Link href="/" className="whitespace-nowrap font-semibold tracking-tight">
+              モデルひろば（モダン）
             </Link>
-            <Link className="whitespace-nowrap hover:text-zinc-900" href="/pg/west">
-              西日本
-            </Link>
-            <Link className="whitespace-nowrap hover:text-zinc-900" href="/rules">
-              ルール
-            </Link>
-            <Link className="whitespace-nowrap hover:text-zinc-900" href="/tags">
-              タグ
-            </Link>
-            <Link className="whitespace-nowrap hover:text-zinc-900" href="/admin/picks">
-              運営
-            </Link>
-            <Link className="whitespace-nowrap hover:text-zinc-900" href="/settings/security">
-              セキュリティ
-            </Link>
-          </nav>
-        </div>
+            <nav className="hidden min-w-0 items-center gap-3 overflow-x-auto text-sm text-zinc-600 sm:flex">
+              <Link className="whitespace-nowrap hover:text-zinc-900" href="/rules">
+                ルール
+              </Link>
+              <Link className="whitespace-nowrap hover:text-zinc-900" href="/tags">
+                タグ
+              </Link>
+              <Link className="whitespace-nowrap hover:text-zinc-900" href="/settings/security">
+                セキュリティ
+              </Link>
+            </nav>
+          </div>
 
-        <div className="flex flex-wrap items-center justify-end gap-2">
-          <Link
-            className="whitespace-nowrap rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
-            href="/posts/new"
-          >
-            新規投稿
-          </Link>
+          <div className="flex flex-wrap items-center justify-end gap-2">
+            <Link
+              className="whitespace-nowrap rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
+              href="/posts/new"
+            >
+              新規投稿
+            </Link>
 
-          {session?.user ? (
-            <>
-              <Link
-                className="relative whitespace-nowrap rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
-                href="/inbox"
-              >
-                受信箱
-                {unread > 0 ? (
-                  <span className="ml-2 inline-flex min-w-5 items-center justify-center rounded-full bg-red-600 px-1.5 text-[10px] font-semibold leading-5 text-white">
-                    {unread > 9 ? "9+" : unread}
-                  </span>
-                ) : null}
-              </Link>
-              <Link
-                className="relative hidden rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50 sm:inline-flex"
-                href="/notifications"
-              >
-                通知
-                {unreadNoti > 0 ? (
-                  <span className="ml-2 inline-flex min-w-5 items-center justify-center rounded-full bg-red-600 px-1.5 text-[10px] font-semibold leading-5 text-white">
-                    {unreadNoti > 9 ? "9+" : unreadNoti}
-                  </span>
-                ) : null}
-              </Link>
-              <Link
-                className="hidden rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50 sm:inline-flex"
-                href="/favorites"
-              >
-                保存
-              </Link>
-              <Link
-                className="hidden rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50 sm:inline-flex"
-                href={`/u/${userId}`}
-              >
-                プロフィール
-              </Link>
-              <span className="hidden text-sm text-zinc-600 sm:inline">
-                {(session as any).user?.name ?? (session as any).user?.email}
-              </span>
-              <Link
-                className="whitespace-nowrap rounded-full bg-zinc-900 px-3 py-1.5 text-sm text-white hover:bg-zinc-800"
-                href="/logout"
-              >
-                ログアウト
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link
-                className="whitespace-nowrap rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
-                href="/login?callbackUrl=/inbox"
-              >
-                受信箱
-              </Link>
-              <Link
-                className="whitespace-nowrap rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
-                href="/login"
-              >
-                ログイン
-              </Link>
-              <Link
-                className="whitespace-nowrap rounded-full bg-zinc-900 px-3 py-1.5 text-sm text-white hover:bg-zinc-800"
-                href="/signup"
-              >
-                新規登録
-              </Link>
-            </>
-          )}
-        </div>
+            {session?.user ? (
+              <>
+                <Link
+                  className="relative whitespace-nowrap rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
+                  href="/inbox"
+                >
+                  受信箱
+                  {unread > 0 ? (
+                    <span className="ml-2 inline-flex min-w-5 items-center justify-center rounded-full bg-red-600 px-1.5 text-[10px] font-semibold leading-5 text-white">
+                      {unread > 9 ? "9+" : unread}
+                    </span>
+                  ) : null}
+                </Link>
+                <Link
+                  className="relative hidden rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50 sm:inline-flex"
+                  href="/notifications"
+                >
+                  通知
+                  {unreadNoti > 0 ? (
+                    <span className="ml-2 inline-flex min-w-5 items-center justify-center rounded-full bg-red-600 px-1.5 text-[10px] font-semibold leading-5 text-white">
+                      {unreadNoti > 9 ? "9+" : unreadNoti}
+                    </span>
+                  ) : null}
+                </Link>
+                <Link
+                  className="hidden rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50 sm:inline-flex"
+                  href="/favorites"
+                >
+                  保存
+                </Link>
+                <Link
+                  className="hidden rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50 sm:inline-flex"
+                  href={`/u/${userId}`}
+                >
+                  プロフィール
+                </Link>
+                <span className="hidden text-sm text-zinc-600 sm:inline">
+                  {(session as any).user?.name ?? (session as any).user?.email}
+                </span>
+                <Link
+                  className="whitespace-nowrap rounded-full bg-zinc-900 px-3 py-1.5 text-sm text-white hover:bg-zinc-800"
+                  href="/logout"
+                >
+                  ログアウト
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  className="whitespace-nowrap rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
+                  href="/login?callbackUrl=/inbox"
+                >
+                  受信箱
+                </Link>
+                <Link
+                  className="whitespace-nowrap rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
+                  href="/login"
+                >
+                  ログイン
+                </Link>
+                <Link
+                  className="whitespace-nowrap rounded-full bg-zinc-900 px-3 py-1.5 text-sm text-white hover:bg-zinc-800"
+                  href="/signup"
+                >
+                  新規登録
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </header>
