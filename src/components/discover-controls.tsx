@@ -72,13 +72,23 @@ export function DiscoverControls() {
   const initialSort = searchParams.get("sort") ?? "latest";
 
   const [q, setQ] = useState(initialQ);
+  const [prefecture, setPrefecture] = useState(initialPref);
+  const [days, setDays] = useState(initialDays);
+  const [hasReward, setHasReward] = useState(initialHasReward);
+  const [sort, setSort] = useState(initialSort);
+  const [hasImage, setHasImage] = useState(initialHasImage);
 
-  const url = useMemo(() => {
+  const applyUrl = useMemo(() => {
     const p = new URLSearchParams(searchParams.toString());
     // keep mode/region chips; just update our filters
     setParam(p, "q", q.trim() || null);
+    setParam(p, "prefecture", prefecture || null);
+    setParam(p, "days", days || null);
+    setParam(p, "hasReward", hasReward || null);
+    setParam(p, "sort", sort || null);
+    setParam(p, "hasImage", hasImage ? "1" : null);
     return `${pathname}?${p.toString()}`.replace(/\?$/, "");
-  }, [pathname, searchParams, q]);
+  }, [pathname, searchParams, q, prefecture, days, hasReward, sort, hasImage]);
 
   return (
     <div className="grid gap-3">
@@ -96,9 +106,7 @@ export function DiscoverControls() {
           className="mt-3 flex gap-2"
           onSubmit={(e) => {
             e.preventDefault();
-            const p = new URLSearchParams(searchParams.toString());
-            setParam(p, "q", q.trim() || null);
-            router.push(`${pathname}?${p.toString()}`.replace(/\?$/, ""));
+            router.push(applyUrl);
           }}
         >
           <input
@@ -133,12 +141,8 @@ export function DiscoverControls() {
         ) : null}
         <select
           className="rounded-2xl border border-zinc-300 bg-white px-3 py-1.5 text-xs font-semibold text-black/80 transition hover:bg-zinc-50"
-          defaultValue={initialPref}
-          onChange={(e) => {
-            const p = new URLSearchParams(searchParams.toString());
-            setParam(p, "prefecture", e.target.value || null);
-            router.push(`${pathname}?${p.toString()}`.replace(/\?$/, ""));
-          }}
+          value={prefecture}
+          onChange={(e) => setPrefecture(e.target.value)}
         >
           <option value="">都道府県：全国</option>
           {PREFECTURES.map((x) => (
@@ -150,12 +154,8 @@ export function DiscoverControls() {
 
         <select
           className="rounded-2xl border border-zinc-300 bg-white px-3 py-1.5 text-xs font-semibold text-black/80 transition hover:bg-zinc-50"
-          defaultValue={initialDays}
-          onChange={(e) => {
-            const p = new URLSearchParams(searchParams.toString());
-            setParam(p, "days", e.target.value || null);
-            router.push(`${pathname}?${p.toString()}`.replace(/\?$/, ""));
-          }}
+          value={days}
+          onChange={(e) => setDays(e.target.value)}
         >
           <option value="">期間：すべて</option>
           <option value="7">期間：7日</option>
@@ -164,12 +164,8 @@ export function DiscoverControls() {
 
         <select
           className="rounded-2xl border border-zinc-300 bg-white px-3 py-1.5 text-xs font-semibold text-black/80 transition hover:bg-zinc-50"
-          defaultValue={initialHasReward}
-          onChange={(e) => {
-            const p = new URLSearchParams(searchParams.toString());
-            setParam(p, "hasReward", e.target.value || null);
-            router.push(`${pathname}?${p.toString()}`.replace(/\?$/, ""));
-          }}
+          value={hasReward}
+          onChange={(e) => setHasReward(e.target.value)}
         >
           <option value="">報酬：すべて</option>
           <option value="1">報酬：あり</option>
@@ -178,12 +174,8 @@ export function DiscoverControls() {
 
         <select
           className="rounded-2xl border border-zinc-300 bg-white px-3 py-1.5 text-xs font-semibold text-black/80 transition hover:bg-zinc-50"
-          defaultValue={initialSort}
-          onChange={(e) => {
-            const p = new URLSearchParams(searchParams.toString());
-            setParam(p, "sort", e.target.value || null);
-            router.push(`${pathname}?${p.toString()}`.replace(/\?$/, ""));
-          }}
+          value={sort}
+          onChange={(e) => setSort(e.target.value)}
         >
           <option value="latest">並び順：最新</option>
           <option value="image">並び順：画像優先</option>
@@ -192,19 +184,23 @@ export function DiscoverControls() {
         <label className="inline-flex items-center gap-2 rounded-2xl border border-zinc-300 bg-white px-3 py-1.5 text-xs font-semibold text-black/80 transition hover:bg-zinc-50">
           <input
             type="checkbox"
-            defaultChecked={initialHasImage}
-            onChange={(e) => {
-              const p = new URLSearchParams(searchParams.toString());
-              setParam(p, "hasImage", e.target.checked ? "1" : null);
-              router.push(`${pathname}?${p.toString()}`.replace(/\?$/, ""));
-            }}
+            checked={hasImage}
+            onChange={(e) => setHasImage(e.target.checked)}
           />
           画像あり
         </label>
+
+        <button
+          type="button"
+          className="ml-auto rounded-2xl bg-[color:var(--accent-strong)] px-4 py-1.5 text-xs font-semibold text-black shadow-sm transition hover:brightness-105"
+          onClick={() => router.push(applyUrl)}
+        >
+          絞り込む
+        </button>
       </div>
 
       {/* Helps dev / debugging */}
-      <div className="hidden text-xs text-zinc-500">{url}</div>
+      <div className="hidden text-xs text-zinc-500">{applyUrl}</div>
     </div>
   );
 }
