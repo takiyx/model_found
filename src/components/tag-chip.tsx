@@ -4,7 +4,7 @@ export function TagChip({ tag }: { tag: string }) {
   return (
     <Link
       href={`/t/${encodeURIComponent(tag)}`}
-      className="rounded-full border border-zinc-200/70 bg-white/70 px-2 py-0.5 text-xs text-zinc-700 backdrop-blur transition hover:border-zinc-300 hover:bg-white dark:border-zinc-800/70 dark:bg-zinc-900/30 dark:text-zinc-200"
+      className="rounded-full border border-zinc-200 bg-white px-2 py-0.5 text-xs text-black/80 transition hover:border-zinc-300 hover:bg-[color:var(--accent)]"
     >
       {tag}
     </Link>

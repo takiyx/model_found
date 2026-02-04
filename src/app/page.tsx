@@ -181,9 +181,9 @@ export default async function HomePage({
 
 
   const chipBase =
-    "whitespace-nowrap rounded-full border border-zinc-200/70 bg-white/70 px-3 py-1.5 text-xs font-medium text-zinc-700 backdrop-blur transition hover:bg-white dark:border-zinc-800/70 dark:bg-zinc-900/30 dark:text-zinc-200";
+    "whitespace-nowrap rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-xs font-semibold text-black/80 transition hover:border-zinc-300 hover:bg-zinc-50";
   const chipActive =
-    "whitespace-nowrap rounded-full border border-zinc-200/70 bg-[color:var(--accent)] px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:brightness-110 dark:border-zinc-800/70";
+    "whitespace-nowrap rounded-full border border-zinc-200 bg-[color:var(--accent)] px-3 py-1.5 text-xs font-semibold text-black shadow-sm";
 
   const activeMode = modeLabel(mode);
 
@@ -192,19 +192,19 @@ export default async function HomePage({
       <header className="grid gap-4">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <div className="text-xs font-medium text-zinc-500">Discover</div>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
+            <div className="text-xs font-semibold tracking-[0.18em] text-zinc-500">DISCOVER</div>
+            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-black sm:text-4xl">
               モデルひろば
             </h1>
-            <p className="mt-2 max-w-2xl text-sm text-zinc-600">
-              モデルと撮影者の募集を、画像中心で見つけよう。今は <span className="font-medium text-zinc-900">{activeMode}</span> を表示中。
+            <p className="mt-2 max-w-2xl text-sm text-zinc-700">
+              モデルと撮影者の募集を、画像中心で見つけよう。今は <span className="font-semibold text-black">{activeMode}</span> を表示中。
             </p>
           </div>
 
           <div className="flex items-center gap-2">
             <Link
               href="/posts/new"
-              className="inline-flex rounded-full bg-[color:var(--accent)] px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:brightness-110"
+              className="inline-flex rounded-full bg-[color:var(--accent-strong)] px-4 py-2 text-sm font-semibold text-black shadow-sm transition hover:brightness-105"
             >
               投稿する
             </Link>
@@ -250,8 +250,8 @@ export default async function HomePage({
         </div>
       </header>
 
-      {/* Sticky controls (Cosmos-like) */}
-      <div className="sticky top-3 z-30 -mx-4 border-y border-zinc-200/70 bg-white/70 px-4 py-3 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-900/30 sm:top-4 sm:rounded-3xl sm:border sm:py-4 sm:shadow-sm">
+      {/* Controls panel (match your previous homepage style) */}
+      <div className="sticky top-3 z-30 -mx-4 rounded-3xl border border-zinc-200 bg-zinc-200/80 px-4 py-4 shadow-sm sm:top-4">
         <DiscoverControls />
       </div>
 
@@ -260,7 +260,7 @@ export default async function HomePage({
         <SectionHeader title="投稿" subtitle="最新の募集" />
 
         {posts.length === 0 ? (
-          <div className="rounded-3xl border border-zinc-200/70 bg-white/70 p-10 text-sm text-zinc-600 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-900/30 dark:text-zinc-300">
+          <div className="rounded-3xl border border-zinc-200 bg-zinc-100 p-10 text-sm text-zinc-700">
             まだ投稿がありません。
           </div>
         ) : (
@@ -284,7 +284,7 @@ export default async function HomePage({
       </section>
 
       {/* Weekly picks */}
-      <section className="rounded-3xl border border-zinc-200/70 bg-white/70 p-6 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-900/30">
+      <section className="rounded-3xl border border-zinc-200 bg-zinc-100 p-6">
         <SectionHeader title="今週のピックアップ" subtitle="直近7日から、まず見てほしい投稿" />
 
         <div className="mt-4 grid gap-6 md:grid-cols-3">
@@ -317,7 +317,7 @@ export default async function HomePage({
       </section>
 
       {/* Recommended tags */}
-      <section className="rounded-3xl border border-zinc-200/70 bg-white/70 p-6 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-900/30">
+      <section className="rounded-3xl border border-zinc-200 bg-zinc-100 p-6">
         <SectionHeader title="おすすめタグ" actionLabel="もっと見る" actionHref="/tags" />
 
         {tag ? (

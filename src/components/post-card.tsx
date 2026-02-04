@@ -42,13 +42,13 @@ export function PostCard({
   const tags = tagList(post.tags);
 
   return (
-    <div className="group relative overflow-hidden rounded-3xl border border-zinc-200/70 bg-white/80 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-md dark:border-zinc-800/70 dark:bg-zinc-900/30">
+    <div className="group relative overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-md">
       <div className="absolute right-3 top-3 z-10">
         <FavoriteButton kind="post" id={post.id} initialFavorited={favorited} />
       </div>
 
       <Link href={`/posts/${post.id}`} className="block">
-        <div className="relative aspect-[4/3] w-full overflow-hidden bg-zinc-100 dark:bg-zinc-900">
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-zinc-100">
           {cover ? (
             <img
               src={cover.url}
@@ -62,14 +62,14 @@ export function PostCard({
 
           <div className="absolute inset-x-0 bottom-0 p-4">
             <div className="flex flex-wrap gap-1">
-              <span className="rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-medium text-zinc-700 backdrop-blur dark:bg-zinc-900/60 dark:text-zinc-200">
+              <span className="rounded-full border border-zinc-200 bg-white/90 px-2 py-0.5 text-[11px] font-semibold text-black/80">
                 {modeLabel(post.mode)}募集
               </span>
-              <span className="rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-medium text-zinc-700 backdrop-blur dark:bg-zinc-900/60 dark:text-zinc-200">
+              <span className="rounded-full border border-zinc-200 bg-white/90 px-2 py-0.5 text-[11px] font-semibold text-black/80">
                 {prefectureLabels[post.prefecture]}
               </span>
               {post.reward ? (
-                <span className="rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-medium text-zinc-700 backdrop-blur dark:bg-zinc-900/60 dark:text-zinc-200">
+                <span className="rounded-full border border-zinc-200 bg-white/90 px-2 py-0.5 text-[11px] font-semibold text-black/80">
                   {post.reward}
                 </span>
               ) : null}
@@ -78,11 +78,11 @@ export function PostCard({
         </div>
 
         <div className="p-5">
-          <div className="line-clamp-2 text-base font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
+          <div className="line-clamp-2 text-base font-semibold tracking-tight text-black">
             {post.title}
           </div>
 
-          <div className="mt-2 flex flex-wrap gap-2 text-xs text-zinc-600 dark:text-zinc-300">
+          <div className="mt-2 flex flex-wrap gap-2 text-xs text-zinc-600">
             {post.place ? <span className="truncate">{post.place}</span> : null}
             {post.dateText ? <span className="truncate">{post.dateText}</span> : null}
           </div>
@@ -95,7 +95,7 @@ export function PostCard({
             </div>
           ) : null}
 
-          <div className="mt-4 flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-400">
+          <div className="mt-4 flex items-center justify-between text-xs text-zinc-500">
             <span className="truncate">{post.author.displayName}</span>
             <span className="shrink-0">
               {new Date(post.createdAt).toLocaleDateString("ja-JP")}
