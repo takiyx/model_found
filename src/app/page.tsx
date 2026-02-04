@@ -7,8 +7,6 @@ import { DiscoverControls } from "@/components/discover-controls";
 import { searchPostIds } from "@/lib/fts";
 import { getSession } from "@/lib/session";
 import { FEATURED_TAGS } from "@/lib/curation";
-import { DISCOVER_TOPICS } from "@/lib/topics";
-import { TopicCard } from "@/components/topic-card";
 import { normalizeTag, parseTags } from "@/lib/upload";
 import { getRelatedTagsForTag } from "@/lib/related-tags";
 import { getWeeklyPicks } from "@/lib/picks";
@@ -180,25 +178,6 @@ export default async function HomePage({
     }
   }
 
-  // Topics: grouped + 7-day counts (for ops / curation feel)
-  const since7d = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-  const topicCount7d = new Map<string, number>();
-  await Promise.all(
-    DISCOVER_TOPICS.map(async (t) => {
-      if (!t.tag) return;
-      const c = await prisma.post.count({
-        where: { isPublic: true, createdAt: { gte: since7d }, tags: { contains: t.tag } },
-      });
-      topicCount7d.set(t.id, c);
-    })
-  );
-
-  const topicsByGroup = new Map<string, any[]>();
-  for (const t of DISCOVER_TOPICS) {
-    const g = t.group || "Topics";
-    const arr = topicsByGroup.get(g) ?? [];
-    topicsByGroup.set(g, [...arr, t]);
-  }
 
   const chipBase = "whitespace-nowrap rounded-full border bg-white px-3 py-1.5 text-xs font-medium text-zinc-700 hover:bg-zinc-50";
   const chipActive = "whitespace-nowrap rounded-full border bg-zinc-900 px-3 py-1.5 text-xs font-medium text-white";
@@ -270,28 +249,34 @@ export default async function HomePage({
         </div>
       </header>
 
-      {/* Big entrances (nude/portrait/studio) */}
+      {/* Posts (moved to top) */}
+      {posts.length === 0 ? (
+        <div className="rounded-3xl border bg-white p-10 text-sm text-zinc-600">
+          まだ投稿がありません。
+        </div>
+      ) : (
+        <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map((p) => (
+            <PostCard key={p.id} post={p as any} favorited={favoredPostIds.has(p.id)} />
+          ))}
+        </section>
+      )}
+
+      {/* Users (moved under posts) */}
       <section className="grid gap-4">
         <div className="flex items-end justify-between">
-          <h2 className="text-lg font-semibold">人気の入口</h2>
-          <div className="text-xs text-zinc-500">まずはここから</div>
+          <h2 className="text-lg font-semibold">最近のユーザー</h2>
+          <div className="text-xs text-zinc-500">新規登録順</div>
         </div>
-        <div className="grid gap-3 sm:grid-cols-3">
-          {pickTags.map((t) => (
-            <Link
-              key={t}
-              href={`/?tag=${encodeURIComponent(t)}`}
-              className="rounded-3xl border bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-md"
-            >
-              <div className="text-xs font-medium text-zinc-500">特集タグ</div>
-              <div className="mt-2 text-xl font-semibold tracking-tight text-zinc-900">{t}</div>
-              <div className="mt-2 text-sm text-zinc-600">投稿を絞り込んで見る</div>
-            </Link>
+
+        <div className="flex gap-4 overflow-x-auto pb-2">
+          {creators.map((u) => (
+            <UserCard key={u.id} user={u as any} favorited={favoredUserIds.has(u.id)} />
           ))}
         </div>
       </section>
 
-      {/* Weekly picks */}
+      {/* Weekly picks (moved down) */}
       <section className="rounded-3xl border bg-white p-6">
         <div className="flex items-end justify-between">
           <div>
@@ -405,57 +390,6 @@ export default async function HomePage({
             ))}
           </div>
         )}
-      </section>
-
-      {/* Creators */}
-      <section className="grid gap-4">
-        <div className="flex items-end justify-between">
-          <h2 className="text-lg font-semibold">最近のユーザー</h2>
-          <div className="text-xs text-zinc-500">新規登録順</div>
-        </div>
-
-        <div className="flex gap-4 overflow-x-auto pb-2">
-          {creators.map((u) => (
-            <UserCard key={u.id} user={u as any} favorited={favoredUserIds.has(u.id)} />
-          ))}
-        </div>
-      </section>
-
-      {/* Posts */}
-      {posts.length === 0 ? (
-        <div className="rounded-3xl border bg-white p-10 text-sm text-zinc-600">
-          まだ投稿がありません。
-        </div>
-      ) : (
-        <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {posts.map((p) => (
-            <PostCard key={p.id} post={p as any} favorited={favoredPostIds.has(p.id)} />
-          ))}
-        </section>
-      )}
-
-      {/* Topics (Cosmos-like) */}
-      <section className="grid gap-6">
-        <div className="flex items-end justify-between">
-          <div>
-            <h2 className="text-lg font-semibold">特集</h2>
-            <div className="mt-1 text-xs text-zinc-500">直近7日間の投稿数でトレンドをチェック</div>
-          </div>
-          <Link className="text-xs text-zinc-600 hover:text-zinc-900" href="/tags">
-            タグを見る
-          </Link>
-        </div>
-
-        {[...topicsByGroup.entries()].map(([group, list]) => (
-          <div key={group} className="grid gap-4">
-            <div className="text-sm font-medium text-zinc-900">{group}</div>
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {list.map((t) => (
-                <TopicCard key={t.id} topic={t as any} count7d={topicCount7d.get(t.id) ?? 0} />
-              ))}
-            </div>
-          </div>
-        ))}
       </section>
 
       <section className="rounded-3xl border bg-white p-6">
