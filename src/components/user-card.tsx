@@ -40,7 +40,7 @@ export function UserCard({
   const interests = interestList(user.interests);
 
   return (
-    <div className="group relative block w-64 shrink-0 overflow-hidden rounded-3xl border border-zinc-200/70 bg-white/80 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-md dark:border-zinc-800/70 dark:bg-zinc-950/40">
+    <div className="group relative block w-64 shrink-0 overflow-hidden rounded-3xl border border-zinc-200/70 bg-white/80 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-md dark:border-zinc-800/70 dark:bg-zinc-900/30">
       <div className="absolute right-3 top-3 z-10">
         <FavoriteButton kind="user" id={user.id} initialFavorited={favorited} />
       </div>
@@ -63,13 +63,13 @@ export function UserCard({
               {roleChips.map((c) => (
                 <span
                   key={c}
-                  className="rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-medium text-zinc-700 backdrop-blur dark:bg-zinc-950/60 dark:text-zinc-200"
+                  className="rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-medium text-zinc-700 backdrop-blur dark:bg-zinc-900/60 dark:text-zinc-200"
                 >
                   {c}
                 </span>
               ))}
               {user.prefecture ? (
-                <span className="rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-medium text-zinc-700 backdrop-blur dark:bg-zinc-950/60 dark:text-zinc-200">
+                <span className="rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-medium text-zinc-700 backdrop-blur dark:bg-zinc-900/60 dark:text-zinc-200">
                   {prefectureLabels[user.prefecture]}
                 </span>
               ) : null}
@@ -87,7 +87,7 @@ export function UserCard({
               {interests.map((t) => (
                 <span
                   key={t}
-                  className="rounded-full border border-zinc-200/70 bg-white/70 px-2 py-0.5 text-[11px] text-zinc-700 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-950/40 dark:text-zinc-200"
+                  className="rounded-full border border-zinc-200/70 bg-white/70 px-2 py-0.5 text-[11px] text-zinc-700 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-900/30 dark:text-zinc-200"
                 >
                   {t}
                 </span>

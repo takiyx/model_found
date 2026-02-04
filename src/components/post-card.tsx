@@ -42,7 +42,7 @@ export function PostCard({
   const tags = tagList(post.tags);
 
   return (
-    <div className="group relative overflow-hidden rounded-3xl border border-zinc-200/70 bg-white/80 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-md dark:border-zinc-800/70 dark:bg-zinc-950/40">
+    <div className="group relative overflow-hidden rounded-3xl border border-zinc-200/70 bg-white/80 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-md dark:border-zinc-800/70 dark:bg-zinc-900/30">
       <div className="absolute right-3 top-3 z-10">
         <FavoriteButton kind="post" id={post.id} initialFavorited={favorited} />
       </div>
@@ -62,14 +62,14 @@ export function PostCard({
 
           <div className="absolute inset-x-0 bottom-0 p-4">
             <div className="flex flex-wrap gap-1">
-              <span className="rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-medium text-zinc-700 backdrop-blur dark:bg-zinc-950/60 dark:text-zinc-200">
+              <span className="rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-medium text-zinc-700 backdrop-blur dark:bg-zinc-900/60 dark:text-zinc-200">
                 {modeLabel(post.mode)}募集
               </span>
-              <span className="rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-medium text-zinc-700 backdrop-blur dark:bg-zinc-950/60 dark:text-zinc-200">
+              <span className="rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-medium text-zinc-700 backdrop-blur dark:bg-zinc-900/60 dark:text-zinc-200">
                 {prefectureLabels[post.prefecture]}
               </span>
               {post.reward ? (
-                <span className="rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-medium text-zinc-700 backdrop-blur dark:bg-zinc-950/60 dark:text-zinc-200">
+                <span className="rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-medium text-zinc-700 backdrop-blur dark:bg-zinc-900/60 dark:text-zinc-200">
                   {post.reward}
                 </span>
               ) : null}

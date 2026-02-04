@@ -181,7 +181,7 @@ export default async function HomePage({
 
 
   const chipBase =
-    "whitespace-nowrap rounded-full border border-zinc-200/70 bg-white/70 px-3 py-1.5 text-xs font-medium text-zinc-700 backdrop-blur transition hover:bg-white dark:border-zinc-800/70 dark:bg-zinc-950/40 dark:text-zinc-200";
+    "whitespace-nowrap rounded-full border border-zinc-200/70 bg-white/70 px-3 py-1.5 text-xs font-medium text-zinc-700 backdrop-blur transition hover:bg-white dark:border-zinc-800/70 dark:bg-zinc-900/30 dark:text-zinc-200";
   const chipActive =
     "whitespace-nowrap rounded-full border border-zinc-200/70 bg-[color:var(--accent)] px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:brightness-110 dark:border-zinc-800/70";
 
@@ -251,7 +251,7 @@ export default async function HomePage({
       </header>
 
       {/* Sticky controls (Cosmos-like) */}
-      <div className="sticky top-3 z-30 -mx-4 border-y border-zinc-200/70 bg-white/70 px-4 py-3 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-950/40 sm:top-4 sm:rounded-3xl sm:border sm:py-4 sm:shadow-sm">
+      <div className="sticky top-3 z-30 -mx-4 border-y border-zinc-200/70 bg-white/70 px-4 py-3 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-900/30 sm:top-4 sm:rounded-3xl sm:border sm:py-4 sm:shadow-sm">
         <DiscoverControls />
       </div>
 
@@ -260,7 +260,7 @@ export default async function HomePage({
         <SectionHeader title="投稿" subtitle="最新の募集" />
 
         {posts.length === 0 ? (
-          <div className="rounded-3xl border border-zinc-200/70 bg-white/70 p-10 text-sm text-zinc-600 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-950/40 dark:text-zinc-300">
+          <div className="rounded-3xl border border-zinc-200/70 bg-white/70 p-10 text-sm text-zinc-600 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-900/30 dark:text-zinc-300">
             まだ投稿がありません。
           </div>
         ) : (
@@ -284,7 +284,7 @@ export default async function HomePage({
       </section>
 
       {/* Weekly picks */}
-      <section className="rounded-3xl border border-zinc-200/70 bg-white/70 p-6 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-950/40">
+      <section className="rounded-3xl border border-zinc-200/70 bg-white/70 p-6 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-900/30">
         <SectionHeader title="今週のピックアップ" subtitle="直近7日から、まず見てほしい投稿" />
 
         <div className="mt-4 grid gap-6 md:grid-cols-3">
@@ -317,7 +317,7 @@ export default async function HomePage({
       </section>
 
       {/* Recommended tags */}
-      <section className="rounded-3xl border border-zinc-200/70 bg-white/70 p-6 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-950/40">
+      <section className="rounded-3xl border border-zinc-200/70 bg-white/70 p-6 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-900/30">
         <SectionHeader title="おすすめタグ" actionLabel="もっと見る" actionHref="/tags" />
 
         {tag ? (
