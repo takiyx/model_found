@@ -2,6 +2,10 @@ import path from "path";
 import crypto from "crypto";
 import { promises as fs } from "fs";
 
+// Optional: Vercel Blob storage (recommended for production; avoids read-only FS issues)
+// Requires env: BLOB_READ_WRITE_TOKEN
+import { put } from "@vercel/blob";
+
 const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads");
 
 export type StoredUpload = {
@@ -20,9 +24,30 @@ function safeExt(mime: string) {
 export async function saveImageFiles(files: File[]): Promise<StoredUpload[]> {
   if (files.length === 0) return [];
 
+  const out: StoredUpload[] = [];
+
+  // Prefer Vercel Blob in production.
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    for (const f of files) {
+      const ext = safeExt(f.type);
+      if (!ext) continue;
+      if (f.size > 8 * 1024 * 1024) continue;
+
+      const name = `${Date.now()}-${crypto.randomBytes(6).toString("hex")}.${ext}`;
+      const blob = await put(`uploads/${name}`, Buffer.from(await f.arrayBuffer()), {
+        access: "public",
+        contentType: f.type,
+      });
+
+      out.push({ url: blob.url, alt: f.name || "" });
+    }
+
+    return out;
+  }
+
+  // Local filesystem (dev / non-serverless)
   await fs.mkdir(UPLOAD_DIR, { recursive: true });
 
-  const out: StoredUpload[] = [];
   for (const f of files) {
     const ext = safeExt(f.type);
     if (!ext) continue;

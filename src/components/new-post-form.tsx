@@ -140,16 +140,28 @@ export function NewPostForm() {
         </label>
       </div>
 
-      <label className="mt-4 grid gap-1 text-sm">
+      <div className="mt-4 grid gap-1 text-sm">
         <span className="text-zinc-700">写真（最大6枚 / 1枚8MBまで）</span>
-        <input
-          className="rounded-xl border px-3 py-2"
-          type="file"
-          accept="image/jpeg,image/png,image/webp,image/gif"
-          multiple
-          onChange={(e) => setImages(e.target.files)}
-        />
-      </label>
+        <div className="flex flex-wrap items-center gap-2">
+          <input
+            id="post-images"
+            className="hidden"
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            multiple
+            onChange={(e) => setImages(e.target.files)}
+          />
+          <label
+            htmlFor="post-images"
+            className="inline-flex cursor-pointer items-center rounded-2xl border border-zinc-300 bg-white px-4 py-2 text-sm font-semibold text-black/80 shadow-sm hover:bg-zinc-50"
+          >
+            写真を選択
+          </label>
+          <div className="text-xs text-zinc-500">
+            {images && images.length ? `${images.length}枚選択中` : "未選択"}
+          </div>
+        </div>
+      </div>
 
       <label className="mt-4 grid gap-1 text-sm">
         <span className="text-zinc-700">連絡先（必須）*</span>
