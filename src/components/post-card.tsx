@@ -42,7 +42,7 @@ export function PostCard({
   const tags = tagList(post.tags);
 
   return (
-    <div className="group relative h-full overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-md">
+    <div className="group relative h-full overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-md">
       <div className="absolute right-3 top-3 z-10">
         <FavoriteButton kind="post" id={post.id} initialFavorited={favorited} />
       </div>
@@ -62,14 +62,14 @@ export function PostCard({
 
           <div className="absolute inset-x-0 bottom-0 p-4">
             <div className="flex flex-wrap gap-1">
-              <span className="rounded-full border border-zinc-200 bg-white/90 px-2 py-0.5 text-[11px] font-semibold text-black/80">
+              <span className="rounded-2xl border border-zinc-200 bg-white/90 px-2 py-0.5 text-[11px] font-semibold text-black/80">
                 {modeLabel(post.mode)}募集
               </span>
-              <span className="rounded-full border border-zinc-200 bg-white/90 px-2 py-0.5 text-[11px] font-semibold text-black/80">
+              <span className="rounded-2xl border border-zinc-200 bg-white/90 px-2 py-0.5 text-[11px] font-semibold text-black/80">
                 {prefectureLabels[post.prefecture]}
               </span>
               {post.reward ? (
-                <span className="rounded-full border border-zinc-200 bg-white/90 px-2 py-0.5 text-[11px] font-semibold text-black/80">
+                <span className="rounded-2xl border border-zinc-200 bg-white/90 px-2 py-0.5 text-[11px] font-semibold text-black/80">
                   {post.reward}
                 </span>
               ) : null}

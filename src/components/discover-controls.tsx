@@ -109,7 +109,7 @@ export function DiscoverControls() {
         {initialTag ? (
           <button
             type="button"
-            className="rounded-full border border-zinc-300 bg-[color:var(--accent)] px-3 py-1.5 text-xs font-semibold text-black shadow-sm transition hover:brightness-105"
+            className="rounded-2xl border border-zinc-300 bg-[color:var(--accent)] px-3 py-1.5 text-xs font-semibold text-black shadow-sm transition hover:brightness-105"
             onClick={() => {
               const p = new URLSearchParams(searchParams.toString());
               setParam(p, "tag", null);
@@ -121,7 +121,7 @@ export function DiscoverControls() {
           </button>
         ) : null}
         <select
-          className="rounded-full border border-zinc-300 bg-white px-3 py-1.5 text-xs font-semibold text-black/80 transition hover:bg-zinc-50"
+          className="rounded-2xl border border-zinc-300 bg-white px-3 py-1.5 text-xs font-semibold text-black/80 transition hover:bg-zinc-50"
           defaultValue={initialPref}
           onChange={(e) => {
             const p = new URLSearchParams(searchParams.toString());
@@ -138,7 +138,7 @@ export function DiscoverControls() {
         </select>
 
         <select
-          className="rounded-full border border-zinc-300 bg-white px-3 py-1.5 text-xs font-semibold text-black/80 transition hover:bg-zinc-50"
+          className="rounded-2xl border border-zinc-300 bg-white px-3 py-1.5 text-xs font-semibold text-black/80 transition hover:bg-zinc-50"
           defaultValue={initialDays}
           onChange={(e) => {
             const p = new URLSearchParams(searchParams.toString());
@@ -152,7 +152,7 @@ export function DiscoverControls() {
         </select>
 
         <select
-          className="rounded-full border border-zinc-300 bg-white px-3 py-1.5 text-xs font-semibold text-black/80 transition hover:bg-zinc-50"
+          className="rounded-2xl border border-zinc-300 bg-white px-3 py-1.5 text-xs font-semibold text-black/80 transition hover:bg-zinc-50"
           defaultValue={initialHasReward}
           onChange={(e) => {
             const p = new URLSearchParams(searchParams.toString());
@@ -166,7 +166,7 @@ export function DiscoverControls() {
         </select>
 
         <select
-          className="rounded-full border border-zinc-300 bg-white px-3 py-1.5 text-xs font-semibold text-black/80 transition hover:bg-zinc-50"
+          className="rounded-2xl border border-zinc-300 bg-white px-3 py-1.5 text-xs font-semibold text-black/80 transition hover:bg-zinc-50"
           defaultValue={initialSort}
           onChange={(e) => {
             const p = new URLSearchParams(searchParams.toString());
@@ -178,7 +178,7 @@ export function DiscoverControls() {
           <option value="image">並び順：画像優先</option>
         </select>
 
-        <label className="inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-3 py-1.5 text-xs font-semibold text-black/80 transition hover:bg-zinc-50">
+        <label className="inline-flex items-center gap-2 rounded-2xl border border-zinc-300 bg-white px-3 py-1.5 text-xs font-semibold text-black/80 transition hover:bg-zinc-50">
           <input
             type="checkbox"
             defaultChecked={initialHasImage}

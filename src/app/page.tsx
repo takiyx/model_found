@@ -189,14 +189,14 @@ export default async function HomePage({
 
 
   const chipBase =
-    "whitespace-nowrap rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-xs font-semibold text-black/80 transition hover:border-zinc-300 hover:bg-zinc-50";
+    "whitespace-nowrap rounded-2xl border border-zinc-200 bg-white px-3 py-1.5 text-xs font-semibold text-black/80 transition hover:border-zinc-300 hover:bg-zinc-50";
   const chipActive =
-    "whitespace-nowrap rounded-full border border-zinc-200 bg-[color:var(--accent)] px-3 py-1.5 text-xs font-semibold text-black shadow-sm";
+    "whitespace-nowrap rounded-2xl border border-zinc-200 bg-[color:var(--accent)] px-3 py-1.5 text-xs font-semibold text-black shadow-sm";
 
   const activeMode = modeLabel(mode);
 
   return (
-    <div className="grid gap-10">
+    <div className="grid gap-12">
       <header className="grid gap-4">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
@@ -212,7 +212,7 @@ export default async function HomePage({
           <div className="flex items-center gap-2">
             <Link
               href="/posts/new"
-              className="inline-flex rounded-full bg-[color:var(--accent-strong)] px-4 py-2 text-sm font-semibold text-black shadow-sm transition hover:brightness-105"
+              className="inline-flex rounded-2xl bg-[color:var(--accent-strong)] px-4 py-2 text-sm font-semibold text-black shadow-sm transition hover:brightness-105"
             >
               投稿する
             </Link>
@@ -259,7 +259,7 @@ export default async function HomePage({
       </header>
 
       {/* Controls panel (match your previous homepage style) */}
-      <div className="sticky top-3 z-30 -mx-4 rounded-3xl border border-zinc-200 bg-zinc-200/80 px-4 py-4 shadow-sm sm:top-4">
+      <div className="sticky top-3 z-30 rounded-2xl border border-zinc-200 bg-zinc-200/80 px-6 py-5 shadow-sm sm:top-4">
         <DiscoverControls />
       </div>
 
@@ -268,7 +268,7 @@ export default async function HomePage({
         <SectionHeader title="投稿" subtitle="最新の募集" />
 
         {posts.length === 0 ? (
-          <div className="rounded-3xl border border-zinc-200 bg-zinc-100 p-10 text-sm text-zinc-700">
+          <div className="rounded-2xl border border-zinc-200 bg-zinc-100 p-10 text-sm text-zinc-700">
             まだ投稿がありません。
           </div>
         ) : (
@@ -301,7 +301,7 @@ export default async function HomePage({
       </section>
 
       {/* Weekly picks */}
-      <section className="rounded-3xl border border-zinc-200 bg-zinc-100 p-6">
+      <section className="rounded-2xl border border-zinc-200 bg-zinc-100 p-6">
         <SectionHeader title="今週のピックアップ" subtitle="直近7日から、まず見てほしい投稿" />
 
         <div className="mt-4 grid gap-6 md:grid-cols-3">
@@ -334,7 +334,7 @@ export default async function HomePage({
       </section>
 
       {/* Recommended tags */}
-      <section className="rounded-3xl border border-zinc-200 bg-zinc-100 p-6">
+      <section className="rounded-2xl border border-zinc-200 bg-zinc-100 p-6">
         <SectionHeader title="おすすめタグ" actionLabel="もっと見る" actionHref="/tags" />
 
         {tag ? (
@@ -344,13 +344,13 @@ export default async function HomePage({
               <div className="mt-2 flex flex-wrap gap-2">
                 <Link
                   href={`/?tag=${encodeURIComponent(tag)}`}
-                  className="rounded-full border bg-zinc-900 px-3 py-1.5 text-sm text-white hover:bg-zinc-800"
+                  className="rounded-2xl border bg-zinc-900 px-3 py-1.5 text-sm text-white hover:bg-zinc-800"
                 >
                   {tag}
                 </Link>
                 <Link
                   href="/"
-                  className="rounded-full border bg-white px-3 py-1.5 text-sm hover:bg-zinc-50"
+                  className="rounded-2xl border bg-white px-3 py-1.5 text-sm hover:bg-zinc-50"
                 >
                   解除
                 </Link>
@@ -365,7 +365,7 @@ export default async function HomePage({
                     <Link
                       key={t}
                       href={`/?tag=${encodeURIComponent(t)}`}
-                      className="rounded-full border bg-white px-3 py-1.5 text-sm hover:bg-zinc-50"
+                      className="rounded-2xl border bg-white px-3 py-1.5 text-sm hover:bg-zinc-50"
                     >
                       {t}
                     </Link>
@@ -383,7 +383,7 @@ export default async function HomePage({
                     <Link
                       key={t}
                       href={`/t/${encodeURIComponent(t)}`}
-                      className="rounded-full border bg-white px-3 py-1.5 text-sm hover:bg-zinc-50"
+                      className="rounded-2xl border bg-white px-3 py-1.5 text-sm hover:bg-zinc-50"
                     >
                       {t}
                     </Link>
@@ -397,7 +397,7 @@ export default async function HomePage({
               <Link
                 key={t}
                 href={`/t/${encodeURIComponent(t)}`}
-                className="rounded-full border bg-white px-3 py-1.5 text-sm hover:bg-zinc-50"
+                className="rounded-2xl border bg-white px-3 py-1.5 text-sm hover:bg-zinc-50"
               >
                 {t}
               </Link>
@@ -406,7 +406,7 @@ export default async function HomePage({
         )}
       </section>
 
-      <section className="rounded-3xl border bg-white p-6">
+      <section className="rounded-2xl border bg-white p-6">
         <h2 className="text-lg font-semibold">安全にご利用ください</h2>
         <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-zinc-600">
           <li>高額報酬・自撮りのみなど不自然な条件は慎重に。</li>

@@ -18,7 +18,7 @@ export async function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 border-b bg-white/80 backdrop-blur">
-      <div className="mx-auto grid max-w-5xl gap-2 px-4 py-3 sm:px-6">
+      <div className="mx-auto grid max-w-6xl gap-2 px-4 py-3 sm:px-6">
         {bannedAt ? (
           <NoticeBanner tone="danger" title="このアカウントは現在制限されています">
             操作できない場合があります。必要ならログアウトして別のアカウントでログインしてください。
@@ -43,7 +43,7 @@ export async function SiteHeader() {
 
           <div className="flex flex-wrap items-center justify-end gap-2">
             <Link
-              className="whitespace-nowrap rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
+              className="whitespace-nowrap rounded-2xl border px-3 py-1.5 text-sm hover:bg-zinc-50"
               href="/posts/new"
             >
               新規投稿
@@ -52,7 +52,7 @@ export async function SiteHeader() {
             {session?.user ? (
               <>
                 <Link
-                  className="relative whitespace-nowrap rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
+                  className="relative whitespace-nowrap rounded-2xl border px-3 py-1.5 text-sm hover:bg-zinc-50"
                   href="/inbox"
                 >
                   受信箱
@@ -63,7 +63,7 @@ export async function SiteHeader() {
                   ) : null}
                 </Link>
                 <details className="relative">
-                  <summary className="list-none cursor-pointer whitespace-nowrap rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50">
+                  <summary className="list-none cursor-pointer whitespace-nowrap rounded-2xl border px-3 py-1.5 text-sm hover:bg-zinc-50">
                     <span className="inline-flex items-center gap-2">
                       <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-zinc-900 text-xs font-semibold text-white">
                         {String(((session as any).user?.name ?? (session as any).user?.email ?? "U").trim().charAt(0)).toUpperCase()}
@@ -111,19 +111,19 @@ export async function SiteHeader() {
             ) : (
               <>
                 <Link
-                  className="whitespace-nowrap rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
+                  className="whitespace-nowrap rounded-2xl border px-3 py-1.5 text-sm hover:bg-zinc-50"
                   href="/login?callbackUrl=/inbox"
                 >
                   受信箱
                 </Link>
                 <Link
-                  className="whitespace-nowrap rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
+                  className="whitespace-nowrap rounded-2xl border px-3 py-1.5 text-sm hover:bg-zinc-50"
                   href="/login"
                 >
                   ログイン
                 </Link>
                 <Link
-                  className="whitespace-nowrap rounded-full bg-zinc-900 px-3 py-1.5 text-sm text-white hover:bg-zinc-800"
+                  className="whitespace-nowrap rounded-2xl bg-zinc-900 px-3 py-1.5 text-sm text-white hover:bg-zinc-800"
                   href="/signup"
                 >
                   新規登録

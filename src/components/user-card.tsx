@@ -40,7 +40,7 @@ export function UserCard({
   const interests = interestList(user.interests);
 
   return (
-    <div className="group relative block w-64 shrink-0 overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-md">
+    <div className="group relative block w-64 shrink-0 overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-md">
       <div className="absolute right-3 top-3 z-10">
         <FavoriteButton kind="user" id={user.id} initialFavorited={favorited} />
       </div>
@@ -63,13 +63,13 @@ export function UserCard({
               {roleChips.map((c) => (
                 <span
                   key={c}
-                  className="rounded-full border border-zinc-200 bg-white/90 px-2 py-0.5 text-[11px] font-semibold text-black/80"
+                  className="rounded-2xl border border-zinc-200 bg-white/90 px-2 py-0.5 text-[11px] font-semibold text-black/80"
                 >
                   {c}
                 </span>
               ))}
               {user.prefecture ? (
-                <span className="rounded-full border border-zinc-200 bg-white/90 px-2 py-0.5 text-[11px] font-semibold text-black/80">
+                <span className="rounded-2xl border border-zinc-200 bg-white/90 px-2 py-0.5 text-[11px] font-semibold text-black/80">
                   {prefectureLabels[user.prefecture]}
                 </span>
               ) : null}
@@ -87,7 +87,7 @@ export function UserCard({
               {interests.map((t) => (
                 <span
                   key={t}
-                  className="rounded-full border border-zinc-200 bg-white px-2 py-0.5 text-[11px] text-black/80"
+                  className="rounded-2xl border border-zinc-200 bg-white px-2 py-0.5 text-[11px] text-black/80"
                 >
                   {t}
                 </span>
