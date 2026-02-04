@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LpLayout, Faq } from "../_shared";
+import { JsonLd, baseStructuredData, faqStructuredData, absoluteUrl } from "../_jsonld";
 
 export const metadata = {
   title: "ヌードモデル募集｜Model Find",
@@ -8,8 +9,33 @@ export const metadata = {
 };
 
 export default function Page() {
+  const url = absoluteUrl("/lp/nude-model-boshu");
   return (
-    <LpLayout
+    <>
+      <JsonLd data={baseStructuredData()} />
+      <JsonLd
+        data={
+          faqStructuredData({
+            url,
+            items: [
+              {
+                q: "ヌードモデル募集で確認すべき項目は？",
+                a: "撮影内容（露出範囲）、撮影場所、同意書、データの扱い（公開/非公開/掲載先）、報酬、キャンセル規定などです。",
+              },
+              {
+                q: "安全のためにできることは？",
+                a: "事前に条件を文章で合意し、初回は人目のある場所で打ち合わせ、個人情報の共有は最小限にしましょう。",
+              },
+              {
+                q: "違和感がある募集を見つけたら？",
+                a: "無理に連絡せず、ルールに沿って運営へ報告する導線を用意予定です。",
+              },
+            ],
+          })
+        }
+      />
+
+      <LpLayout
       kicker="LANDING"
       title="ヌードモデル募集"
       desc="Model Find は、モデル・カメラマンを見つけるマッチング掲示板。成人向けの募集が含まれる可能性があるため、ルールと安全事項を必ず確認してください。"
@@ -57,5 +83,6 @@ export default function Page() {
         ]}
       />
     </LpLayout>
+    </>
   );
 }

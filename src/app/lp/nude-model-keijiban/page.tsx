@@ -1,4 +1,5 @@
 import { LpLayout, Faq } from "../_shared";
+import { JsonLd, baseStructuredData, faqStructuredData, absoluteUrl } from "../_jsonld";
 
 export const metadata = {
   title: "ヌードモデル掲示板｜Model Find",
@@ -7,8 +8,33 @@ export const metadata = {
 };
 
 export default function Page() {
+  const url = absoluteUrl("/lp/nude-model-keijiban");
   return (
-    <LpLayout
+    <>
+      <JsonLd data={baseStructuredData()} />
+      <JsonLd
+        data={
+          faqStructuredData({
+            url,
+            items: [
+              {
+                q: "ヌードモデル掲示板は誰でも閲覧できますか？",
+                a: "当サイトには成人向けの表現が含まれる可能性があります。18歳未満の方は利用できません。",
+              },
+              {
+                q: "どんな条件が危険ですか？",
+                a: "高額報酬の即日案件、詳細が曖昧、外部連絡を急かす、同意書なし、公開範囲の説明がない等は慎重に。",
+              },
+              {
+                q: "トラブル防止のために必要なことは？",
+                a: "条件の文章化、同意書、データの扱い、公開範囲、身分確認の方法などを事前に合意しましょう。",
+              },
+            ],
+          })
+        }
+      />
+
+      <LpLayout
       kicker="LANDING"
       title="ヌードモデル掲示板"
       desc="Model Find は、モデル・カメラマンを見つけるマッチング掲示板。成人向けの募集が含まれる可能性があるため、ルールと安全事項を必ず確認してください。"
@@ -44,5 +70,6 @@ export default function Page() {
         ]}
       />
     </LpLayout>
+    </>
   );
 }

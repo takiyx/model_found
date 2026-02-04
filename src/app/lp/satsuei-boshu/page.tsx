@@ -1,4 +1,5 @@
 import { LpLayout, Faq } from "../_shared";
+import { JsonLd, baseStructuredData, faqStructuredData, absoluteUrl } from "../_jsonld";
 
 export const metadata = {
   title: "撮影募集｜Model Find",
@@ -7,8 +8,33 @@ export const metadata = {
 };
 
 export default function Page() {
+  const url = absoluteUrl("/lp/satsuei-boshu");
   return (
-    <LpLayout
+    <>
+      <JsonLd data={baseStructuredData()} />
+      <JsonLd
+        data={
+          faqStructuredData({
+            url,
+            items: [
+              {
+                q: "撮影募集の連絡はどこからできますか？",
+                a: "気になる投稿を開き、投稿者情報や連絡導線を確認してください（仕様は今後調整予定）。",
+              },
+              {
+                q: "募集に書くとよい項目は？",
+                a: "日時、場所、所要時間、撮影内容、衣装/メイク、報酬、データ納品などを明確にしましょう。",
+              },
+              {
+                q: "トラブルを避けるには？",
+                a: "最初のやりとりで条件を文章で残し、個人情報の交換は必要最小限に。怪しい場合は連絡しない判断も大切です。",
+              },
+            ],
+          })
+        }
+      />
+
+      <LpLayout
       kicker="LANDING"
       title="撮影募集"
       desc="Model Find は、モデル・カメラマンを見つけるマッチング掲示板。撮影募集を条件で絞り込んで探せます。"
@@ -48,5 +74,6 @@ export default function Page() {
         ]}
       />
     </LpLayout>
+    </>
   );
 }
