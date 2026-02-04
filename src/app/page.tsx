@@ -202,7 +202,7 @@ export default async function HomePage({
           <div>
             <div className="text-xs font-semibold tracking-[0.18em] text-zinc-500">DISCOVER</div>
             <h1 className="mt-2 text-3xl font-semibold tracking-tight text-black sm:text-4xl">
-              モデルひろば
+              Model Find
             </h1>
             <p className="mt-2 max-w-2xl text-sm text-zinc-700">
               モデルと撮影者の募集を、画像中心で見つけよう。今は <span className="font-semibold text-black">{activeMode}</span> を表示中。

@@ -19,8 +19,8 @@ export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: {
-    default: "モデルひろば（モダン）",
-    template: "%s | モデルひろば（モダン）",
+    default: "Model Find",
+    template: "%s | Model Find",
   },
   description: "モデルと撮影者をつなぐ、シンプルなマッチング掲示板（デモ）",
 };

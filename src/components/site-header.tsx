@@ -28,7 +28,7 @@ export async function SiteHeader() {
         <div className="flex items-center justify-between gap-3">
           <div className="flex min-w-0 items-center gap-3">
             <Link href="/" className="whitespace-nowrap font-semibold tracking-tight">
-              モデルひろば（モダン）
+              Model Find
             </Link>
             <nav className="hidden min-w-0 items-center gap-3 overflow-x-auto text-sm text-zinc-600 sm:flex">
               <Link className="whitespace-nowrap hover:text-zinc-900" href="/rules">
