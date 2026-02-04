@@ -82,28 +82,39 @@ export function DiscoverControls() {
 
   return (
     <div className="grid gap-3">
-      <form
-        className="flex gap-2"
-        onSubmit={(e) => {
-          e.preventDefault();
-          const p = new URLSearchParams(searchParams.toString());
-          setParam(p, "q", q.trim() || null);
-          router.push(`${pathname}?${p.toString()}`.replace(/\?$/, ""));
-        }}
-      >
-        <input
-          className="flex-1 rounded-2xl border border-zinc-300 bg-white px-4 py-2 text-sm text-black shadow-sm outline-none placeholder:text-zinc-500 focus:border-zinc-400"
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          placeholder="検索（タイトル/本文/タグ）"
-        />
-        <button
-          type="submit"
-          className="rounded-2xl bg-[color:var(--accent-strong)] px-4 py-2 text-sm font-semibold text-black shadow-sm transition hover:brightness-105"
+      {/* Search box (optional) */}
+      <details className="group">
+        <summary className="list-none cursor-pointer select-none">
+          <div className="inline-flex items-center gap-2 rounded-2xl border border-zinc-300 bg-white px-3 py-2 text-sm font-semibold text-black/80 shadow-sm hover:bg-zinc-50">
+            <span>キーワード検索</span>
+            <span className="text-xs text-zinc-500 group-open:hidden">（開く）</span>
+            <span className="text-xs text-zinc-500 hidden group-open:inline">（閉じる）</span>
+          </div>
+        </summary>
+
+        <form
+          className="mt-3 flex gap-2"
+          onSubmit={(e) => {
+            e.preventDefault();
+            const p = new URLSearchParams(searchParams.toString());
+            setParam(p, "q", q.trim() || null);
+            router.push(`${pathname}?${p.toString()}`.replace(/\?$/, ""));
+          }}
         >
-          検索
-        </button>
-      </form>
+          <input
+            className="flex-1 rounded-2xl border border-zinc-300 bg-white px-4 py-2 text-sm text-black shadow-sm outline-none placeholder:text-zinc-500 focus:border-zinc-400"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="検索（タイトル/本文/タグ）"
+          />
+          <button
+            type="submit"
+            className="rounded-2xl bg-[color:var(--accent-strong)] px-4 py-2 text-sm font-semibold text-black shadow-sm transition hover:brightness-105"
+          >
+            検索
+          </button>
+        </form>
+      </details>
 
       <div className="flex flex-wrap items-center gap-2">
         {initialTag ? (

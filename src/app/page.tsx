@@ -258,8 +258,8 @@ export default async function HomePage({
         </div>
       </header>
 
-      {/* Controls panel (match your previous homepage style) */}
-      <div className="sticky top-3 z-30 rounded-2xl border border-zinc-200 bg-zinc-200/80 px-6 py-5 shadow-sm sm:top-4">
+      {/* Controls panel */}
+      <div className="rounded-2xl border border-zinc-200 bg-zinc-200/80 px-6 py-5 shadow-sm">
         <DiscoverControls />
       </div>
 
