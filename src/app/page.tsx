@@ -116,6 +116,14 @@ export default async function HomePage({
     posts = posts.filter((p) => parseTags(p.tags).includes(tag));
   }
 
+  // Bento hero card: prefer a post with image for the first (featured) slot.
+  // Keep overall ordering, just swap the first "has image" post to the front.
+  const heroIndex = posts.findIndex((p) => (p.images?.length ?? 0) > 0);
+  if (heroIndex > 0) {
+    const hero = posts[heroIndex];
+    posts = [hero, ...posts.slice(0, heroIndex), ...posts.slice(heroIndex + 1)];
+  }
+
   // Related tags (stable + context-aware)
   const relatedTags = tag
     ? await getRelatedTagsForTag({ tag, mode, region, prefecture })
@@ -264,9 +272,18 @@ export default async function HomePage({
             まだ投稿がありません。
           </div>
         ) : (
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((p) => (
-              <PostCard key={p.id} post={p as any} favorited={favoredPostIds.has(p.id)} />
+          <div className="grid auto-rows-fr gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((p, i) => (
+              <div
+                key={p.id}
+                className={
+                  i === 0
+                    ? "sm:col-span-2 sm:row-span-2"
+                    : ""
+                }
+              >
+                <PostCard post={p as any} favorited={favoredPostIds.has(p.id)} />
+              </div>
             ))}
           </div>
         )}
