@@ -92,14 +92,14 @@ export function DiscoverControls() {
         }}
       >
         <input
-          className="flex-1 rounded-2xl border bg-white px-4 py-2 text-sm shadow-sm outline-none placeholder:text-zinc-400 focus:border-zinc-300"
+          className="flex-1 rounded-2xl border border-zinc-200/70 bg-white/80 px-4 py-2 text-sm shadow-sm backdrop-blur outline-none placeholder:text-zinc-400 focus:border-zinc-300 dark:border-zinc-800/70 dark:bg-zinc-950/40 dark:text-zinc-100"
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="検索（タイトル/本文/タグ）"
         />
         <button
           type="submit"
-          className="rounded-2xl bg-zinc-900 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-zinc-800"
+          className="rounded-2xl bg-[color:var(--accent)] px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:brightness-110"
         >
           検索
         </button>
@@ -109,7 +109,7 @@ export function DiscoverControls() {
         {initialTag ? (
           <button
             type="button"
-            className="rounded-full border bg-zinc-900 px-3 py-1.5 text-xs font-medium text-white hover:bg-zinc-800"
+            className="rounded-full border border-zinc-200/70 bg-[color:var(--accent)] px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:brightness-110 dark:border-zinc-800/70"
             onClick={() => {
               const p = new URLSearchParams(searchParams.toString());
               setParam(p, "tag", null);
@@ -121,7 +121,7 @@ export function DiscoverControls() {
           </button>
         ) : null}
         <select
-          className="rounded-full border bg-white px-3 py-1.5 text-xs font-medium text-zinc-700 hover:bg-zinc-50"
+          className="rounded-full border border-zinc-200/70 bg-white/70 px-3 py-1.5 text-xs font-medium text-zinc-700 backdrop-blur transition hover:bg-white dark:border-zinc-800/70 dark:bg-zinc-950/40 dark:text-zinc-200"
           defaultValue={initialPref}
           onChange={(e) => {
             const p = new URLSearchParams(searchParams.toString());
@@ -138,7 +138,7 @@ export function DiscoverControls() {
         </select>
 
         <select
-          className="rounded-full border bg-white px-3 py-1.5 text-xs font-medium text-zinc-700 hover:bg-zinc-50"
+          className="rounded-full border border-zinc-200/70 bg-white/70 px-3 py-1.5 text-xs font-medium text-zinc-700 backdrop-blur transition hover:bg-white dark:border-zinc-800/70 dark:bg-zinc-950/40 dark:text-zinc-200"
           defaultValue={initialDays}
           onChange={(e) => {
             const p = new URLSearchParams(searchParams.toString());
@@ -152,7 +152,7 @@ export function DiscoverControls() {
         </select>
 
         <select
-          className="rounded-full border bg-white px-3 py-1.5 text-xs font-medium text-zinc-700 hover:bg-zinc-50"
+          className="rounded-full border border-zinc-200/70 bg-white/70 px-3 py-1.5 text-xs font-medium text-zinc-700 backdrop-blur transition hover:bg-white dark:border-zinc-800/70 dark:bg-zinc-950/40 dark:text-zinc-200"
           defaultValue={initialHasReward}
           onChange={(e) => {
             const p = new URLSearchParams(searchParams.toString());
@@ -166,7 +166,7 @@ export function DiscoverControls() {
         </select>
 
         <select
-          className="rounded-full border bg-white px-3 py-1.5 text-xs font-medium text-zinc-700 hover:bg-zinc-50"
+          className="rounded-full border border-zinc-200/70 bg-white/70 px-3 py-1.5 text-xs font-medium text-zinc-700 backdrop-blur transition hover:bg-white dark:border-zinc-800/70 dark:bg-zinc-950/40 dark:text-zinc-200"
           defaultValue={initialSort}
           onChange={(e) => {
             const p = new URLSearchParams(searchParams.toString());
@@ -178,7 +178,7 @@ export function DiscoverControls() {
           <option value="image">並び順：画像優先</option>
         </select>
 
-        <label className="inline-flex items-center gap-2 rounded-full border bg-white px-3 py-1.5 text-xs font-medium text-zinc-700 hover:bg-zinc-50">
+        <label className="inline-flex items-center gap-2 rounded-full border border-zinc-200/70 bg-white/70 px-3 py-1.5 text-xs font-medium text-zinc-700 backdrop-blur transition hover:bg-white dark:border-zinc-800/70 dark:bg-zinc-950/40 dark:text-zinc-200">
           <input
             type="checkbox"
             defaultChecked={initialHasImage}

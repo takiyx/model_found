@@ -3,6 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  /* Cosmos-like accent (used for CTAs, active chips, links) */
+  --accent: #7c3aed; /* violet-600 */
 }
 
 @theme inline {
@@ -16,6 +18,7 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --accent: #8b5cf6; /* violet-500 */
   }
 }
 

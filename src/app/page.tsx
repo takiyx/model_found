@@ -4,6 +4,7 @@ import { PostMode, Region } from "@prisma/client";
 import { PostCard } from "@/components/post-card";
 import { UserCard } from "@/components/user-card";
 import { DiscoverControls } from "@/components/discover-controls";
+import { SectionHeader } from "@/components/section-header";
 import { searchPostIds } from "@/lib/fts";
 import { getSession } from "@/lib/session";
 import { FEATURED_TAGS } from "@/lib/curation";
@@ -179,8 +180,10 @@ export default async function HomePage({
   }
 
 
-  const chipBase = "whitespace-nowrap rounded-full border bg-white px-3 py-1.5 text-xs font-medium text-zinc-700 hover:bg-zinc-50";
-  const chipActive = "whitespace-nowrap rounded-full border bg-zinc-900 px-3 py-1.5 text-xs font-medium text-white";
+  const chipBase =
+    "whitespace-nowrap rounded-full border border-zinc-200/70 bg-white/70 px-3 py-1.5 text-xs font-medium text-zinc-700 backdrop-blur transition hover:bg-white dark:border-zinc-800/70 dark:bg-zinc-950/40 dark:text-zinc-200";
+  const chipActive =
+    "whitespace-nowrap rounded-full border border-zinc-200/70 bg-[color:var(--accent)] px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:brightness-110 dark:border-zinc-800/70";
 
   const activeMode = modeLabel(mode);
 
@@ -201,14 +204,12 @@ export default async function HomePage({
           <div className="flex items-center gap-2">
             <Link
               href="/posts/new"
-              className="inline-flex rounded-full bg-zinc-900 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-zinc-800"
+              className="inline-flex rounded-full bg-[color:var(--accent)] px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:brightness-110"
             >
               投稿する
             </Link>
           </div>
         </div>
-
-        <DiscoverControls />
 
         {/* Mode chips (main axis) */}
         <div className="flex gap-2 overflow-x-auto pb-2">
@@ -249,25 +250,31 @@ export default async function HomePage({
         </div>
       </header>
 
-      {/* Posts (moved to top) */}
-      {posts.length === 0 ? (
-        <div className="rounded-3xl border bg-white p-10 text-sm text-zinc-600">
-          まだ投稿がありません。
-        </div>
-      ) : (
-        <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {posts.map((p) => (
-            <PostCard key={p.id} post={p as any} favorited={favoredPostIds.has(p.id)} />
-          ))}
-        </section>
-      )}
+      {/* Sticky controls (Cosmos-like) */}
+      <div className="sticky top-3 z-30 -mx-4 border-y border-zinc-200/70 bg-white/70 px-4 py-3 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-950/40 sm:top-4 sm:rounded-3xl sm:border sm:py-4 sm:shadow-sm">
+        <DiscoverControls />
+      </div>
 
-      {/* Users (moved under posts) */}
+      {/* Posts */}
       <section className="grid gap-4">
-        <div className="flex items-end justify-between">
-          <h2 className="text-lg font-semibold">最近のユーザー</h2>
-          <div className="text-xs text-zinc-500">新規登録順</div>
-        </div>
+        <SectionHeader title="投稿" subtitle="最新の募集" />
+
+        {posts.length === 0 ? (
+          <div className="rounded-3xl border border-zinc-200/70 bg-white/70 p-10 text-sm text-zinc-600 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-950/40 dark:text-zinc-300">
+            まだ投稿がありません。
+          </div>
+        ) : (
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((p) => (
+              <PostCard key={p.id} post={p as any} favorited={favoredPostIds.has(p.id)} />
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* Users */}
+      <section className="grid gap-4">
+        <SectionHeader title="ユーザー" subtitle="新規登録順" />
 
         <div className="flex gap-4 overflow-x-auto pb-2">
           {creators.map((u) => (
@@ -276,14 +283,9 @@ export default async function HomePage({
         </div>
       </section>
 
-      {/* Weekly picks (moved down) */}
-      <section className="rounded-3xl border bg-white p-6">
-        <div className="flex items-end justify-between">
-          <div>
-            <h2 className="text-lg font-semibold">今週のピックアップ</h2>
-            <div className="mt-1 text-xs text-zinc-500">直近7日から、まず見てほしい投稿</div>
-          </div>
-        </div>
+      {/* Weekly picks */}
+      <section className="rounded-3xl border border-zinc-200/70 bg-white/70 p-6 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-950/40">
+        <SectionHeader title="今週のピックアップ" subtitle="直近7日から、まず見てほしい投稿" />
 
         <div className="mt-4 grid gap-6 md:grid-cols-3">
           {picks.map((g) => (
@@ -315,13 +317,8 @@ export default async function HomePage({
       </section>
 
       {/* Recommended tags */}
-      <section className="rounded-3xl border bg-white p-6">
-        <div className="flex items-end justify-between">
-          <h2 className="text-lg font-semibold">おすすめタグ</h2>
-          <Link className="text-xs text-zinc-600 hover:text-zinc-900" href="/tags">
-            もっと見る
-          </Link>
-        </div>
+      <section className="rounded-3xl border border-zinc-200/70 bg-white/70 p-6 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-950/40">
+        <SectionHeader title="おすすめタグ" actionLabel="もっと見る" actionHref="/tags" />
 
         {tag ? (
           <div className="mt-3 grid gap-3">

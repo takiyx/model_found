@@ -40,13 +40,13 @@ export function UserCard({
   const interests = interestList(user.interests);
 
   return (
-    <div className="group relative block w-64 shrink-0 overflow-hidden rounded-3xl border bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-md">
+    <div className="group relative block w-64 shrink-0 overflow-hidden rounded-3xl border border-zinc-200/70 bg-white/80 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-md dark:border-zinc-800/70 dark:bg-zinc-950/40">
       <div className="absolute right-3 top-3 z-10">
         <FavoriteButton kind="user" id={user.id} initialFavorited={favorited} />
       </div>
 
       <Link href={`/u/${user.id}`} className="block">
-        <div className="relative aspect-[4/3] w-full overflow-hidden bg-zinc-100">
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-zinc-100 dark:bg-zinc-900">
           {user.avatarUrl ? (
             <img
               src={user.avatarUrl}
@@ -63,13 +63,13 @@ export function UserCard({
               {roleChips.map((c) => (
                 <span
                   key={c}
-                  className="rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-medium text-zinc-700 backdrop-blur"
+                  className="rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-medium text-zinc-700 backdrop-blur dark:bg-zinc-950/60 dark:text-zinc-200"
                 >
                   {c}
                 </span>
               ))}
               {user.prefecture ? (
-                <span className="rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-medium text-zinc-700 backdrop-blur">
+                <span className="rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-medium text-zinc-700 backdrop-blur dark:bg-zinc-950/60 dark:text-zinc-200">
                   {prefectureLabels[user.prefecture]}
                 </span>
               ) : null}
@@ -78,23 +78,23 @@ export function UserCard({
         </div>
 
         <div className="p-5">
-          <div className="truncate text-base font-semibold tracking-tight text-zinc-900">
+          <div className="truncate text-base font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
             {user.displayName}
           </div>
-          <div className="mt-2 text-xs text-zinc-600">{user.basePlace ? user.basePlace : ""}</div>
+          <div className="mt-2 text-xs text-zinc-600 dark:text-zinc-300">{user.basePlace ? user.basePlace : ""}</div>
           {interests.length > 0 ? (
             <div className="mt-3 flex flex-wrap gap-1">
               {interests.map((t) => (
                 <span
                   key={t}
-                  className="rounded-full border bg-zinc-50 px-2 py-0.5 text-[11px] text-zinc-700"
+                  className="rounded-full border border-zinc-200/70 bg-white/70 px-2 py-0.5 text-[11px] text-zinc-700 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-950/40 dark:text-zinc-200"
                 >
                   {t}
                 </span>
               ))}
             </div>
           ) : (
-            <div className="mt-3 text-xs text-zinc-500">プロフィール未設定</div>
+            <div className="mt-3 text-xs text-zinc-500 dark:text-zinc-400">プロフィール未設定</div>
           )}
         </div>
       </Link>
