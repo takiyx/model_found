@@ -56,6 +56,9 @@ export default function RootLayout({
                   <a className="hover:text-zinc-900 underline-offset-2 hover:underline" href="/tags">
                     タグ
                   </a>
+                  <a className="hover:text-zinc-900 underline-offset-2 hover:underline" href="/changelog">
+                    更新ログ
+                  </a>
                   <a className="hover:text-zinc-900 underline-offset-2 hover:underline" href="/settings/security">
                     セキュリティ
                   </a>

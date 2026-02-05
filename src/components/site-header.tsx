@@ -12,6 +12,8 @@ export async function SiteHeader() {
   const session = await getSession();
   const userId = (session as any)?.user?.id as string | undefined;
   const bannedAt = (session as any)?.user?.bannedAt as Date | undefined;
+  const email = (session as any)?.user?.email as string | undefined;
+  const isAdmin = email ? (await import("@/lib/admin")).isAdminEmail(email) : false;
 
   const unread = userId ? await countUnreadThreads(userId) : 0;
   const unreadNoti = userId ? await countUnreadNotifications(userId) : 0;
@@ -37,6 +39,14 @@ export async function SiteHeader() {
               <Link className="whitespace-nowrap hover:text-zinc-900" href="/tags">
                 タグ
               </Link>
+              <Link className="whitespace-nowrap hover:text-zinc-900" href="/changelog">
+                更新ログ
+              </Link>
+              {isAdmin ? (
+                <Link className="whitespace-nowrap hover:text-zinc-900" href="/admin">
+                  管理
+                </Link>
+              ) : null}
               {/* セキュリティはフッターへ移動 */}
             </nav>
           </div>
