@@ -5,6 +5,7 @@ export const metadata = {
   title: "ヌードモデル掲示板｜Model Find",
   description:
     "ヌードモデル掲示板（成人向け募集を含む可能性）として、条件を確認しながら募集を探せます。18歳未満は利用不可。",
+  alternates: { canonical: "/lp/nude-model-keijiban" },
 };
 
 export default function Page() {

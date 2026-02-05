@@ -12,13 +12,7 @@ export function JsonLd({ data }: { data: any }) {
   );
 }
 
-function siteUrl() {
-  const env = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL;
-  if (env) return env.replace(/\/$/, "");
-  const vercel = process.env.VERCEL_URL;
-  if (vercel) return `https://${vercel}`;
-  return "http://localhost:3000";
-}
+import { siteUrl } from "@/lib/site";
 
 export function baseStructuredData() {
   const base = siteUrl();

@@ -5,6 +5,7 @@ export const metadata = {
   title: "撮影募集｜Model Find",
   description:
     "撮影募集（モデル募集・撮影者募集）を探せるマッチング掲示板。地域・期間・報酬・画像ありで絞り込み、最新の募集を見つけられます。",
+  alternates: { canonical: "/lp/satsuei-boshu" },
 };
 
 export default function Page() {

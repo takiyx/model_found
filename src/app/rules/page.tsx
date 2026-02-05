@@ -1,5 +1,11 @@
 import Link from "next/link";
 
+export const metadata = {
+  title: "安全ガイド / ルール",
+  description: "Model Find を安全に利用するためのルールと注意点。未成年禁止、詐欺・勧誘禁止、個人情報の取り扱いなど。",
+  alternates: { canonical: "/rules" },
+};
+
 export default function RulesPage() {
   return (
     <div className="grid gap-6">

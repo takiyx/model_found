@@ -4,6 +4,12 @@ import { parseTags } from "@/lib/upload";
 import { FEATURED_TAGS } from "@/lib/curation";
 import { getRelatedTagsForTag } from "@/lib/related-tags";
 
+export const metadata = {
+  title: "タグ一覧",
+  description: "人気タグから募集を探せます。ポートレート、スタジオ、作品撮りなど。",
+  alternates: { canonical: "/tags" },
+};
+
 export default async function TagsPage() {
   const posts = await prisma.post.findMany({
     where: { isPublic: true },

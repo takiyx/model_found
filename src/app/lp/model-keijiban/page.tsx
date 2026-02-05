@@ -5,6 +5,7 @@ export const metadata = {
   title: "モデル掲示板｜Model Find",
   description:
     "モデル募集・撮影者募集を探せるモデル掲示板。地域・期間・報酬・画像ありで絞り込み、最新の募集を見つけられます。",
+  alternates: { canonical: "/lp/model-keijiban" },
 };
 
 export default function Page() {

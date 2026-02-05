@@ -6,6 +6,7 @@ export const metadata = {
   title: "ヌードモデル募集｜Model Find",
   description:
     "ヌードモデル募集を探すためのマッチング掲示板。18歳未満は利用不可。条件・報酬・撮影内容を確認し、安全に利用しましょう。",
+  alternates: { canonical: "/lp/nude-model-boshu" },
 };
 
 export default function Page() {

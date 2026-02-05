@@ -6,6 +6,7 @@ export const metadata = {
   title: "ポートレートモデル募集｜Model Find",
   description:
     "ポートレート撮影のモデル募集・撮影者募集を探せるマッチング掲示板。地域・期間・報酬・画像ありで絞り込み、安心のルールも確認できます。",
+  alternates: { canonical: "/lp/portrait-model" },
 };
 
 export default function Page() {
