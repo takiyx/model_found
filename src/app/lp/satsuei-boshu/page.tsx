@@ -1,4 +1,4 @@
-import { LpLayout, Faq } from "../_shared";
+import { LpLayout, Faq, RelatedLpLinks } from "../_shared";
 import { JsonLd, baseStructuredData, faqStructuredData, absoluteUrl } from "../_jsonld";
 
 export const metadata = {
@@ -57,6 +57,18 @@ export default function Page() {
         </ul>
       </div>
 
+      <div className="grid gap-3">
+        <h2 className="text-lg font-semibold tracking-tight text-black">初回連絡のコピペ例</h2>
+        <pre className="whitespace-pre-wrap rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-xs leading-5 text-zinc-700">{`はじめまして。投稿を拝見しました。
+・希望日時：
+・場所：
+・撮影内容：
+・報酬/交通費：
+・NG事項：
+こちらの条件でご相談可能でしょうか？`}</pre>
+        <p className="text-xs text-zinc-500">最初に条件を文章で残すと、認識ズレを防げます。</p>
+      </div>
+
       <Faq
         items={[
           {
@@ -71,6 +83,14 @@ export default function Page() {
             q: "トラブルを避けるには？",
             a: "最初のやりとりで条件を文章で残し、個人情報の交換は必要最小限に。怪しい場合は連絡しない判断も大切です。",
           },
+        ]}
+      />
+
+      <RelatedLpLinks
+        items={[
+          { href: "/lp/model-keijiban", label: "モデル掲示板" },
+          { href: "/lp/portrait-model", label: "ポートレートモデル募集" },
+          { href: "/rules", label: "安全ガイド" },
         ]}
       />
     </LpLayout>

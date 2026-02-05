@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LpLayout, Faq } from "../_shared";
+import { LpLayout, Faq, RelatedLpLinks } from "../_shared";
 import { JsonLd, baseStructuredData, faqStructuredData, absoluteUrl } from "../_jsonld";
 
 export const metadata = {
@@ -66,6 +66,17 @@ export default function Page() {
         </div>
       </div>
 
+      <div className="grid gap-3">
+        <h2 className="text-lg font-semibold tracking-tight text-black">重要：合意しておきたいこと</h2>
+        <p className="text-sm text-zinc-700">ヌード/センシティブな撮影は、後から揉めやすい領域です。最初に文章で合意しましょう。</p>
+        <ul className="list-disc space-y-1 pl-5 text-sm text-zinc-700">
+          <li>露出範囲（例：上半身のみ/全裸なし など）</li>
+          <li>掲載先（SNS/ポートフォリオ/商用）と期限</li>
+          <li>撮影データの保管期間と削除依頼の可否</li>
+          <li>当日の同席者・スタジオ入退室のルール</li>
+        </ul>
+      </div>
+
       <Faq
         items={[
           {
@@ -78,8 +89,16 @@ export default function Page() {
           },
           {
             q: "違和感がある募集を見つけたら？",
-            a: "無理に連絡せず、ルールに沿って運営へ報告する導線を用意予定です。",
+            a: "投稿詳細から報告できます。安全のため、無理に連絡しない判断も大切です。",
           },
+        ]}
+      />
+
+      <RelatedLpLinks
+        items={[
+          { href: "/lp/nude-model-keijiban", label: "ヌードモデル掲示板" },
+          { href: "/lp/satsuei-boshu", label: "撮影募集" },
+          { href: "/rules", label: "安全ガイド" },
         ]}
       />
     </LpLayout>

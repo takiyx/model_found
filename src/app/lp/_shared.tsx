@@ -62,3 +62,23 @@ export function Faq({ items }: { items: Array<{ q: string; a: React.ReactNode }>
     </div>
   );
 }
+
+export function RelatedLpLinks({ items }: { items: Array<{ href: string; label: string }> }) {
+  return (
+    <div className="grid gap-3">
+      <h2 className="text-lg font-semibold tracking-tight text-black">関連ページ</h2>
+      <div className="flex flex-wrap gap-2">
+        {items.map((it) => (
+          <Link
+            key={it.href}
+            className="rounded-2xl border border-zinc-200 bg-white px-3 py-1.5 text-xs font-semibold text-black/80 hover:bg-zinc-50"
+            href={it.href}
+          >
+            {it.label}
+          </Link>
+        ))}
+      </div>
+      <p className="text-xs text-zinc-500">条件が近いページも一緒に見ると、募集の傾向が掴みやすくなります。</p>
+    </div>
+  );
+}

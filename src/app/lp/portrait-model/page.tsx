@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LpLayout, Faq } from "../_shared";
+import { LpLayout, Faq, RelatedLpLinks } from "../_shared";
 import { JsonLd, baseStructuredData, faqStructuredData, absoluteUrl } from "../_jsonld";
 
 export const metadata = {
@@ -72,6 +72,16 @@ export default function Page() {
         </div>
       </div>
 
+      <div className="grid gap-3">
+        <h2 className="text-lg font-semibold tracking-tight text-black">安心して募集するためのチェックリスト</h2>
+        <ul className="list-disc space-y-1 pl-5 text-sm text-zinc-700">
+          <li>報酬・拘束時間・撮影場所（集合/解散）を明記</li>
+          <li>衣装/メイク/スタジオ費の負担者を明確に</li>
+          <li>データ納品（枚数・期限・修正範囲）を事前に合意</li>
+          <li>未成年・違法行為・強引な外部連絡の要求はNG</li>
+        </ul>
+      </div>
+
       <Faq
         items={[
           {
@@ -91,6 +101,14 @@ export default function Page() {
             q: "タグがない募集も探せますか？",
             a: "本文検索（キーワード検索）や地域/期間の絞り込みで探せます。",
           },
+        ]}
+      />
+
+      <RelatedLpLinks
+        items={[
+          { href: "/lp/satsuei-boshu", label: "撮影募集" },
+          { href: "/lp/model-keijiban", label: "モデル掲示板" },
+          { href: "/lp/nude-model-boshu", label: "ヌードモデル募集" },
         ]}
       />
     </LpLayout>

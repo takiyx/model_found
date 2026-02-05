@@ -1,4 +1,4 @@
-import { LpLayout, Faq } from "../_shared";
+import { LpLayout, Faq, RelatedLpLinks } from "../_shared";
 import { JsonLd, baseStructuredData, faqStructuredData, absoluteUrl } from "../_jsonld";
 
 export const metadata = {
@@ -53,6 +53,15 @@ export default function Page() {
         </ul>
       </div>
 
+      <div className="grid gap-3">
+        <h2 className="text-lg font-semibold tracking-tight text-black">最低限の安全ルール</h2>
+        <ul className="list-disc space-y-1 pl-5 text-sm text-zinc-700">
+          <li>初回は事前面談（人目のある場所）→ 合意後に撮影</li>
+          <li>外部連絡へ誘導されても、条件が固まるまでは慎重に</li>
+          <li>公開範囲・データ扱い（掲載先/期間/削除）を文章で残す</li>
+        </ul>
+      </div>
+
       <Faq
         items={[
           {
@@ -67,6 +76,14 @@ export default function Page() {
             q: "トラブル防止のために必要なことは？",
             a: "条件の文章化、同意書、データの扱い、公開範囲、身分確認の方法などを事前に合意しましょう。",
           },
+        ]}
+      />
+
+      <RelatedLpLinks
+        items={[
+          { href: "/lp/nude-model-boshu", label: "ヌードモデル募集" },
+          { href: "/lp/model-keijiban", label: "モデル掲示板" },
+          { href: "/rules", label: "安全ガイド" },
         ]}
       />
     </LpLayout>
