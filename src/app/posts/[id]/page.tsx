@@ -61,6 +61,9 @@ export default async function PostDetailPage({
 
   // Author can still preview their hidden post
   const hiddenForOthers = !post.isPublic;
+  const hiddenBecauseUrl = hiddenForOthers
+    ? (await import("@/lib/post-guard")).containsUrlLike(`${post.title}\n${post.body}\n${post.contactText}`)
+    : false;
 
   const initialBlocked = currentUserId
     ? !!(await prisma.blockUser.findUnique({
@@ -79,7 +82,14 @@ export default async function PostDetailPage({
 
       {hiddenForOthers ? (
         <NoticeBanner tone="warning" title="この投稿は非表示です（投稿者のみ表示）">
-          他のユーザーには表示されません。
+          {hiddenBecauseUrl ? (
+            <>
+              外部URLを含むため、スパム対策の自動審査で一時的に非公開になっています。
+              必要ならURLを削除して再投稿するか、管理者の確認をお待ちください。
+            </>
+          ) : (
+            <>他のユーザーには表示されません。</>
+          )}
         </NoticeBanner>
       ) : null}
 

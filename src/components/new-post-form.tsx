@@ -174,6 +174,7 @@ export function NewPostForm() {
         />
         <div className="text-xs text-zinc-500">
           迷惑行為対策のため、相手が返信するまで他ユーザーには表示されません。
+          <span className="block">※外部URL（http/https/www など）を含む投稿は、自動審査のため一時的に非公開になる場合があります。</span>
         </div>
       </label>
 
@@ -186,6 +187,10 @@ export function NewPostForm() {
           placeholder={`・自己紹介\n・希望内容\n・条件\n・連絡方法（站内メッセージ推奨）`}
           required
         />
+        <div className="text-xs text-zinc-500">
+          ※スパム対策のため、本文に外部URL（http/https/www など）を含む投稿は自動的に非公開になり、管理者確認後に公開されます。
+          悪質な投稿は利用制限（BAN）の対象になります。
+        </div>
       </label>
 
       {error ? <div className="mt-4 text-sm text-red-600">{error}</div> : null}
