@@ -90,16 +90,34 @@ export function NewPostForm() {
         </label>
       </div>
 
-      <label className="mt-4 grid gap-1 text-sm">
-        <span className="text-zinc-700">タイトル</span>
-        <input
-          className="rounded-xl border px-3 py-2"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="例：都内でポートレート撮影できる方募集"
-          required
-        />
-      </label>
+      <div className="mt-4 grid gap-3">
+        <details className="rounded-2xl border bg-zinc-50 px-4 py-3">
+          <summary className="cursor-pointer list-none text-sm font-semibold text-zinc-900">
+            良い募集テンプレ（クリックで開く）
+          </summary>
+          <div className="mt-3 grid gap-3 text-xs text-zinc-700">
+            <div className="rounded-xl border bg-white p-3 whitespace-pre-wrap leading-5">{`【目的】ポートレート / 作品撮り / 宣材 など
+【日時】候補日・所要時間
+【場所】最寄り駅・屋内/屋外・集合/解散
+【条件】衣装/メイク/露出NG など
+【報酬】交通費 / 謝礼 / 相互無償
+【データ】納品枚数・期限・レタッチ範囲
+【連絡】まずは站内メッセージ推奨`}</div>
+            <div className="text-zinc-500">このテンプレを埋めるだけで、返信率が上がります。</div>
+          </div>
+        </details>
+
+        <label className="grid gap-1 text-sm">
+          <span className="text-zinc-700">タイトル</span>
+          <input
+            className="rounded-xl border px-3 py-2"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="例：都内でポートレート撮影できる方募集"
+            required
+          />
+        </label>
+      </div>
 
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <label className="grid gap-1 text-sm">

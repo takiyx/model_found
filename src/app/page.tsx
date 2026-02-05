@@ -261,6 +261,38 @@ export default async function HomePage({
       {/* Controls panel */}
       <div className="rounded-2xl border border-zinc-200 bg-zinc-200/80 px-6 py-5 shadow-sm">
         <DiscoverControls />
+
+        <div className="mt-4 grid gap-3">
+          <div className="text-xs font-semibold tracking-[0.18em] text-zinc-500">QUICK START</div>
+
+          <div className="grid gap-2">
+            <div className="text-xs font-medium text-zinc-600">東京近郊（すぐ探す）</div>
+            <div className="flex flex-wrap gap-2">
+              <Link href={`/?prefecture=TOKYO${mode ? `&mode=${mode}` : ""}`} className={prefecture === "TOKYO" ? chipActive : chipBase}>
+                東京
+              </Link>
+              <Link href={`/?prefecture=SAITAMA${mode ? `&mode=${mode}` : ""}`} className={prefecture === "SAITAMA" ? chipActive : chipBase}>
+                埼玉
+              </Link>
+              <Link href={`/?prefecture=CHIBA${mode ? `&mode=${mode}` : ""}`} className={prefecture === "CHIBA" ? chipActive : chipBase}>
+                千葉
+              </Link>
+              <Link href={mode ? `/?mode=${mode}` : "/"} className={!prefecture ? chipBase : chipBase}>
+                クリア
+              </Link>
+            </div>
+          </div>
+
+          <div className="grid gap-2">
+            <div className="text-xs font-medium text-zinc-600">目的別（初めての人向け）</div>
+            <div className="flex flex-wrap gap-2">
+              <Link href="/lp/model-keijiban" className={chipBase}>モデル掲示板</Link>
+              <Link href="/lp/portrait-model" className={chipBase}>ポートレートモデル募集</Link>
+              <Link href="/lp/satsuei-boshu" className={chipBase}>撮影募集</Link>
+              <Link href="/lp/nude-model-boshu" className={chipBase}>ヌードモデル募集</Link>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Posts */}
