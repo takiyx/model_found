@@ -96,13 +96,41 @@ export function NewPostForm() {
             良い募集テンプレ（クリックで開く）
           </summary>
           <div className="mt-3 grid gap-3 text-xs text-zinc-700">
-            <div className="rounded-xl border bg-white p-3 whitespace-pre-wrap leading-5">{`【目的】ポートレート / 作品撮り / 宣材 など
+            <textarea
+              readOnly
+              className="min-h-32 w-full resize-y rounded-xl border bg-white p-3 font-mono text-xs leading-5 text-zinc-800"
+              value={`【目的】ポートレート / 作品撮り / 宣材 など
 【日時】候補日・所要時間
 【場所】最寄り駅・屋内/屋外・集合/解散
 【条件】衣装/メイク/露出NG など
 【報酬】交通費 / 謝礼 / 相互無償
 【データ】納品枚数・期限・レタッチ範囲
-【連絡】まずは站内メッセージ推奨`}</div>
+【連絡】まずは站内メッセージ推奨`}
+            />
+
+            <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                className="rounded-xl border bg-white px-3 py-1.5 text-xs font-semibold hover:bg-zinc-50"
+                onClick={async () => {
+                  const t = `【目的】ポートレート / 作品撮り / 宣材 など\n【日時】候補日・所要時間\n【場所】最寄り駅・屋内/屋外・集合/解散\n【条件】衣装/メイク/露出NG など\n【報酬】交通費 / 謝礼 / 相互無償\n【データ】納品枚数・期限・レタッチ範囲\n【連絡】まずは站内メッセージ推奨`;
+                  await navigator.clipboard.writeText(t);
+                }}
+              >
+                コピー
+              </button>
+              <button
+                type="button"
+                className="rounded-xl border bg-white px-3 py-1.5 text-xs font-semibold hover:bg-zinc-50"
+                onClick={() => {
+                  const t = `【目的】ポートレート / 作品撮り / 宣材 など\n【日時】候補日・所要時間\n【場所】最寄り駅・屋内/屋外・集合/解散\n【条件】衣装/メイク/露出NG など\n【報酬】交通費 / 謝礼 / 相互無償\n【データ】納品枚数・期限・レタッチ範囲\n【連絡】まずは站内メッセージ推奨`;
+                  setBody((prev) => (prev ? `${prev}\n\n${t}` : t));
+                }}
+              >
+                本文に挿入
+              </button>
+            </div>
+
             <div className="text-zinc-500">このテンプレを埋めるだけで、返信率が上がります。</div>
           </div>
         </details>
