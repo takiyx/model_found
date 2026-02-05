@@ -67,13 +67,11 @@ export default async function AdminPage() {
                     <button
                       className="rounded-xl border border-red-200 bg-red-50 px-3 py-1.5 text-sm text-red-700 hover:bg-red-100"
                       type="submit"
-                      onClick={(e) => {
-                        if (!confirm("本当に削除しますか？")) e.preventDefault();
-                      }}
                     >
                       削除
                     </button>
                   </form>
+                  <div className="text-xs text-zinc-500">※削除は取り消せません</div>
                 </div>
               </div>
 
