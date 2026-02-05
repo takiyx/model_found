@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { prisma } from "@/lib/db";
 import { siteUrl } from "@/lib/site";
 import { parseTags, normalizeTag } from "@/lib/upload";
+import { FEATURED_TAGS } from "@/lib/curation";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -54,10 +55,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  const topTags = [...counts.entries()]
+  const topFromPosts = [...counts.entries()]
     .sort((a, b) => b[1] - a[1])
     .slice(0, 50)
     .map(([t]) => t);
+
+  // Fallback: always include a small curated set so /t/* exists even before enough posts.
+  const fallback = FEATURED_TAGS.map(normalizeTag).filter(Boolean);
+
+  const topTags = [...new Set([...topFromPosts, ...fallback])].slice(0, 50);
 
   const tagRoutes: MetadataRoute.Sitemap = topTags.map((t) => ({
     url: `${base}/t/${encodeURIComponent(t)}`,
