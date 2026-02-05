@@ -29,13 +29,20 @@ export async function assertPostRateLimit(userId: string) {
 }
 
 export async function shouldAutoHidePost(userId: string, input: { title: string; body: string; contactText: string }) {
+  const strict = String(process.env.STRICT_LINK_REVIEW ?? "").toLowerCase();
+  const strictOn = strict === "1" || strict === "true" || strict === "yes";
+
   const now = Date.now();
   const user = await prisma.user.findUnique({ where: { id: userId }, select: { createdAt: true } });
   const isNew = user ? now - user.createdAt.getTime() < 24 * 60 * 60 * 1000 : false;
 
-  // If a brand-new account tries to post anything that looks like an external URL,
-  // hide it for review (reduces spam / scam blasts).
   const hasUrl = containsUrlLike(`${input.title}\n${input.body}\n${input.contactText}`);
+
+  // Cold-start safe mode: hide any post that contains an external URL-like token.
+  if (strictOn && hasUrl) return true;
+
+  // Default: if a brand-new account tries to post anything that looks like an external URL,
+  // hide it for review (reduces spam / scam blasts).
   if (isNew && hasUrl) return true;
 
   return false;
