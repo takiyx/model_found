@@ -10,8 +10,15 @@ import { BlockButton } from "@/components/block-button";
 import { TagChip } from "@/components/tag-chip";
 import { CopyButton } from "@/components/copy-button";
 import { isAdminEmail } from "@/lib/admin";
+import { absoluteUrl } from "@/lib/site";
+import { generatePostMetadata } from "./metadata";
 
 import { NoticeBanner } from "@/components/notice-banner";
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  return await generatePostMetadata(id);
+}
 
 export default async function PostDetailPage({
   params,
@@ -99,6 +106,24 @@ export default async function PostDetailPage({
           )}
         </NoticeBanner>
       ) : null}
+
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            headline: post.title,
+            datePublished: post.createdAt,
+            dateModified: post.updatedAt,
+            author: { "@type": "Person", name: post.author.displayName },
+            mainEntityOfPage: absoluteUrl(`/posts/${post.id}`),
+            url: absoluteUrl(`/posts/${post.id}`),
+            image: post.images?.map((i) => i.url) ?? [],
+          }),
+        }}
+      />
 
       <header className="rounded-3xl border bg-white p-6">
         <div className="flex flex-wrap items-start justify-between gap-3">

@@ -17,12 +17,35 @@ const geistMono = Geist_Mono({
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
+function metadataBaseUrl() {
+  const env = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL;
+  const base = env ? env.replace(/\/$/, "") : process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000";
+  return new URL(base);
+}
+
 export const metadata: Metadata = {
+  metadataBase: metadataBaseUrl(),
   title: {
     default: "Model Find",
     template: "%s | Model Find",
   },
   description: "モデルと撮影者をつなぐ、シンプルなマッチング掲示板（デモ）",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    siteName: "Model Find",
+    title: "Model Find",
+    description: "モデルと撮影者をつなぐ、シンプルなマッチング掲示板（デモ）",
+    url: "/",
+    locale: "ja_JP",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Model Find",
+    description: "モデルと撮影者をつなぐ、シンプルなマッチング掲示板（デモ）",
+  },
 };
 
 export default function RootLayout({

@@ -12,6 +12,12 @@ import { normalizeTag, parseTags } from "@/lib/upload";
 import { getRelatedTagsForTag } from "@/lib/related-tags";
 import { getWeeklyPicks } from "@/lib/picks";
 
+export const metadata = {
+  title: "掲示板（最新の募集）",
+  description: "東京・埼玉・千葉などで、モデル/撮影者の募集を条件で絞り込み。写真付き投稿や報酬ありでも探せます。",
+  alternates: { canonical: "/" },
+};
+
 function modeLabel(mode: string | undefined) {
   if (mode === "photographer") return "撮影者募集";
   if (mode === "model") return "モデル募集";

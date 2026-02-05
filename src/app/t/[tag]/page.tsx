@@ -6,6 +6,14 @@ import { normalizeTag, parseTags } from "@/lib/upload";
 import { getSession } from "@/lib/session";
 import { FEATURED_TAGS } from "@/lib/curation";
 import { getRelatedTagsForTag } from "@/lib/related-tags";
+import { generateTagMetadata } from "./metadata";
+
+export async function generateMetadata({ params }: { params: Promise<{ tag: string }> }) {
+  const { tag } = await params;
+  const decoded = normalizeTag(decodeURIComponent(tag));
+  if (!decoded) return { title: "タグ" };
+  return generateTagMetadata(decoded);
+}
 
 export default async function TagPage({
   params,
