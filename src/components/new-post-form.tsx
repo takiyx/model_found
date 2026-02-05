@@ -22,6 +22,13 @@ export function NewPostForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  const focusBody = () => {
+    const el = document.getElementById("post-body") as HTMLTextAreaElement | null;
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    el.focus();
+  };
+
   return (
     <form
       className="rounded-3xl border bg-white p-6"
@@ -125,6 +132,7 @@ export function NewPostForm() {
                 onClick={() => {
                   const t = `【目的】ポートレート / 作品撮り / 宣材 など\n【日時】候補日・所要時間\n【場所】最寄り駅・屋内/屋外・集合/解散\n【条件】衣装/メイク/露出NG など\n【報酬】交通費 / 謝礼 / 相互無償\n【データ】納品枚数・期限・レタッチ範囲\n【連絡】まずは站内メッセージ推奨`;
                   setBody((prev) => (prev ? `${prev}\n\n${t}` : t));
+                  setTimeout(focusBody, 0);
                 }}
               >
                 本文に挿入
@@ -138,6 +146,7 @@ export function NewPostForm() {
                   const ok = window.confirm("本文をテンプレで上書きしますか？（現在の本文は消えます）");
                   if (!ok) return;
                   setBody(t);
+                  setTimeout(focusBody, 0);
                 }}
               >
                 本文をテンプレで上書き
@@ -240,6 +249,7 @@ export function NewPostForm() {
       <label className="mt-4 grid gap-1 text-sm">
         <span className="text-zinc-700">本文（必須）*</span>
         <textarea
+          id="post-body"
           className="min-h-48 rounded-xl border px-3 py-2"
           value={body}
           onChange={(e) => setBody(e.target.value)}
