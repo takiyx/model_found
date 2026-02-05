@@ -5,6 +5,7 @@ import { prisma } from "@/lib/db";
 import { assertNotBanned } from "@/lib/user-status";
 import { saveImageFiles, parseTags } from "@/lib/upload";
 import { regionFromPrefecture } from "@/lib/prefectures";
+import { assertPostRateLimit, shouldAutoHidePost } from "@/lib/post-guard";
 
 export const runtime = "nodejs";
 import { PostMode, Prefecture } from "@prisma/client";
@@ -32,6 +33,9 @@ export async function POST(req: Request) {
 
   const active = await assertNotBanned(userId);
   if (!active.ok) return NextResponse.json({ error: active.error }, { status: 403 });
+
+  const rl = await assertPostRateLimit(userId);
+  if (!rl.ok) return NextResponse.json({ error: rl.error, maxPerHour: rl.maxPerHour }, { status: 429 });
 
   const contentType = req.headers.get("content-type") ?? "";
 
@@ -77,6 +81,12 @@ export async function POST(req: Request) {
 
     const tagList = parseTags(parsed.data.tags).join(",");
 
+    const autoHide = await shouldAutoHidePost(userId, {
+      title: parsed.data.title,
+      body: parsed.data.body,
+      contactText: parsed.data.contactText,
+    });
+
     const post = await prisma.post.create({
       data: {
         region: regionFromPrefecture(parsed.data.prefecture),
@@ -90,7 +100,7 @@ export async function POST(req: Request) {
         tags: tagList,
         contactText: parsed.data.contactText,
         authorId: userId,
-        isPublic: true,
+        isPublic: !autoHide,
         images: {
           create: stored.map((s) => ({ url: s.url, alt: s.alt ?? "" })),
         },
@@ -109,6 +119,12 @@ export async function POST(req: Request) {
 
   const tagList = parseTags(parsed.data.tags).join(",");
 
+  const autoHide = await shouldAutoHidePost(userId, {
+    title: parsed.data.title,
+    body: parsed.data.body,
+    contactText: parsed.data.contactText,
+  });
+
   const post = await prisma.post.create({
     data: {
       region: regionFromPrefecture(parsed.data.prefecture),
@@ -122,7 +138,7 @@ export async function POST(req: Request) {
       tags: tagList,
       contactText: parsed.data.contactText,
       authorId: userId,
-      isPublic: true,
+      isPublic: !autoHide,
     },
     select: { id: true },
   });
