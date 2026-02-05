@@ -5,7 +5,7 @@ import { prisma } from "@/lib/db";
 import { assertNotBanned } from "@/lib/user-status";
 import { saveImageFiles, parseTags } from "@/lib/upload";
 import { regionFromPrefecture } from "@/lib/prefectures";
-import { assertPostRateLimit, shouldAutoHidePost } from "@/lib/post-guard";
+import { assertPostRateLimit, shouldAutoHidePost, stripExternalUrls } from "@/lib/post-guard";
 
 export const runtime = "nodejs";
 import { PostMode, Prefecture } from "@prisma/client";
@@ -81,10 +81,14 @@ export async function POST(req: Request) {
 
     const tagList = parseTags(parsed.data.tags).join(",");
 
+    const bodySan = stripExternalUrls(parsed.data.body);
+    const contactSan = stripExternalUrls(parsed.data.contactText);
+    const sanitized = bodySan.changed || contactSan.changed;
+
     const autoHide = await shouldAutoHidePost(userId, {
       title: parsed.data.title,
-      body: parsed.data.body,
-      contactText: parsed.data.contactText,
+      body: bodySan.text,
+      contactText: contactSan.text,
     });
 
     const post = await prisma.post.create({
@@ -93,12 +97,12 @@ export async function POST(req: Request) {
         prefecture: parsed.data.prefecture,
         mode: parsed.data.mode,
         title: parsed.data.title,
-        body: parsed.data.body,
+        body: bodySan.text,
         reward: parsed.data.reward,
         place: parsed.data.place,
         dateText: parsed.data.dateText,
         tags: tagList,
-        contactText: parsed.data.contactText,
+        contactText: contactSan.text,
         authorId: userId,
         isPublic: !autoHide,
         images: {
@@ -108,7 +112,7 @@ export async function POST(req: Request) {
       select: { id: true },
     });
 
-    return NextResponse.json({ ok: true, post });
+    return NextResponse.json({ ok: true, post, sanitized });
   }
 
   const json = await req.json().catch(() => null);
@@ -119,10 +123,14 @@ export async function POST(req: Request) {
 
   const tagList = parseTags(parsed.data.tags).join(",");
 
+  const bodySan = stripExternalUrls(parsed.data.body);
+  const contactSan = stripExternalUrls(parsed.data.contactText);
+  const sanitized = bodySan.changed || contactSan.changed;
+
   const autoHide = await shouldAutoHidePost(userId, {
     title: parsed.data.title,
-    body: parsed.data.body,
-    contactText: parsed.data.contactText,
+    body: bodySan.text,
+    contactText: contactSan.text,
   });
 
   const post = await prisma.post.create({
@@ -131,17 +139,17 @@ export async function POST(req: Request) {
       prefecture: parsed.data.prefecture,
       mode: parsed.data.mode,
       title: parsed.data.title,
-      body: parsed.data.body,
+      body: bodySan.text,
       reward: parsed.data.reward,
       place: parsed.data.place,
       dateText: parsed.data.dateText,
       tags: tagList,
-      contactText: parsed.data.contactText,
+      contactText: contactSan.text,
       authorId: userId,
       isPublic: !autoHide,
     },
     select: { id: true },
   });
 
-  return NextResponse.json({ ok: true, post });
+  return NextResponse.json({ ok: true, post, sanitized });
 }

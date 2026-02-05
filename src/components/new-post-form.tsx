@@ -63,7 +63,7 @@ export function NewPostForm() {
           return;
         }
 
-        router.push(`/posts/${data.post.id}`);
+        router.push(`/posts/${data.post.id}${data?.sanitized ? "?sanitized=1" : ""}`);
       }}
     >
       <div className="grid gap-4 sm:grid-cols-2">
@@ -174,7 +174,7 @@ export function NewPostForm() {
         />
         <div className="text-xs text-zinc-500">
           迷惑行為対策のため、相手が返信するまで他ユーザーには表示されません。
-          <span className="block">※外部URL（http/https/www など）を含む投稿は、自動審査のため一時的に非公開になる場合があります。</span>
+          <span className="block">※スパム対策のため、外部URL（http/https/www など）は自動的に削除される場合があります。</span>
         </div>
       </label>
 
@@ -188,8 +188,8 @@ export function NewPostForm() {
           required
         />
         <div className="text-xs text-zinc-500">
-          ※スパム対策のため、本文に外部URL（http/https/www など）を含む投稿は自動的に非公開になり、管理者確認後に公開されます。
-          悪質な投稿は利用制限（BAN）の対象になります。
+          ※スパム対策のため、本文に外部URL（http/https/www など）を含む場合は、自動的にURLが削除されます。
+          悪質なスパム投稿は利用制限（BAN）の対象になります。
         </div>
       </label>
 

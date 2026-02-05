@@ -8,6 +8,24 @@ export function containsUrlLike(text: string) {
   return /\b[a-z0-9-]+\.(com|net|org|jp|co|io|me|app|dev|xyz|info|biz)\b/i.test(t);
 }
 
+export function stripExternalUrls(text: string) {
+  if (!text) return { text: "", changed: false };
+  let out = text;
+  const before = out;
+
+  // Remove full URLs
+  out = out.replace(/https?:\/\/[^\s)\]}>"']+/gi, "[外部リンク削除]");
+  // Remove www.* tokens
+  out = out.replace(/\bwww\.[^\s)\]}>"']+/gi, "[外部リンク削除]");
+  // Remove bare domain tokens (keep emails intact)
+  out = out.replace(/\b([a-z0-9-]+\.(com|net|org|jp|co|io|me|app|dev|xyz|info|biz))(\/[\w\-./?%&=+#]*)?\b/gi, "[外部リンク削除]");
+
+  // Normalize repeated markers
+  out = out.replace(/(\[外部リンク削除\])(\s*\[外部リンク削除\])+/g, "[外部リンク削除]");
+
+  return { text: out, changed: out !== before };
+}
+
 export async function assertPostRateLimit(userId: string) {
   const now = Date.now();
   const oneHourAgo = new Date(now - 60 * 60 * 1000);

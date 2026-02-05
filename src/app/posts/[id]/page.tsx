@@ -18,11 +18,12 @@ export default async function PostDetailPage({
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ reported?: string }>;
+  searchParams: Promise<{ reported?: string; sanitized?: string }>;
 }) {
   const { id } = await params;
   const sp = await searchParams;
   const reported = sp.reported === "1";
+  const sanitized = sp.sanitized === "1";
 
   const post = await prisma.post.findFirst({
     where: { id },
@@ -77,6 +78,12 @@ export default async function PostDetailPage({
       {reported ? (
         <NoticeBanner tone="success" title="報告を受け付けました">
           ありがとうございます。内容を確認して対応します。
+        </NoticeBanner>
+      ) : null}
+
+      {sanitized ? (
+        <NoticeBanner tone="warning" title="外部リンクを自動削除しました">
+          スパム対策のため、投稿に含まれていた外部URLは自動的に削除されました。必要なら @ID やメール等で記載してください。
         </NoticeBanner>
       ) : null}
 
