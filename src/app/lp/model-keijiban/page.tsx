@@ -39,6 +39,7 @@ export default function Page() {
       kicker="LANDING"
       title="モデル掲示板"
       desc="Model Find は、モデル・カメラマンを見つけるマッチング掲示板。最新の募集を、条件で絞り込んで探せます。"
+      canonical="/lp/model-keijiban"
     >
       <div className="grid gap-3">
         <h2 className="text-lg font-semibold tracking-tight text-black">Model Find の特徴</h2>

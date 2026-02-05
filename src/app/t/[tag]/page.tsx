@@ -7,6 +7,7 @@ import { getSession } from "@/lib/session";
 import { FEATURED_TAGS } from "@/lib/curation";
 import { getRelatedTagsForTag } from "@/lib/related-tags";
 import { generateTagMetadata } from "./metadata";
+import { breadcrumbJsonLd } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ tag: string }> }) {
   const { tag } = await params;
@@ -61,6 +62,19 @@ export default async function TagPage({
 
   return (
     <div className="grid gap-6">
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", url: "/" },
+              { name: "タグ", url: "/tags" },
+              { name: `#${decoded}`, url: `/t/${encodeURIComponent(decoded)}` },
+            ])
+          ),
+        }}
+      />
       <header className="rounded-3xl border bg-white p-6">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>

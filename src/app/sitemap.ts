@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
 import { prisma } from "@/lib/db";
+import { siteUrl } from "@/lib/site";
+import { parseTags, normalizeTag } from "@/lib/upload";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
-
-import { siteUrl } from "@/lib/site";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteUrl();
@@ -38,5 +38,33 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...postRoutes];
+  // Tag pages (top N from recent posts)
+  const recentForTags = await prisma.post.findMany({
+    where: { isPublic: true },
+    take: 300,
+    orderBy: { createdAt: "desc" },
+    select: { tags: true },
+  });
+
+  const counts = new Map<string, number>();
+  for (const p of recentForTags) {
+    for (const t of parseTags(p.tags).map(normalizeTag)) {
+      if (!t) continue;
+      counts.set(t, (counts.get(t) ?? 0) + 1);
+    }
+  }
+
+  const topTags = [...counts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 50)
+    .map(([t]) => t);
+
+  const tagRoutes: MetadataRoute.Sitemap = topTags.map((t) => ({
+    url: `${base}/t/${encodeURIComponent(t)}`,
+    lastModified: now,
+    changeFrequency: "daily",
+    priority: 0.6,
+  }));
+
+  return [...staticRoutes, ...tagRoutes, ...postRoutes];
 }

@@ -39,6 +39,7 @@ export default function Page() {
       kicker="LANDING"
       title="ヌードモデル掲示板"
       desc="Model Find は、モデル・カメラマンを見つけるマッチング掲示板。成人向けの募集が含まれる可能性があるため、ルールと安全事項を必ず確認してください。"
+      canonical="/lp/nude-model-keijiban"
     >
       <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
         <div className="font-semibold">重要：18歳未満は利用できません</div>

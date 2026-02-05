@@ -1,18 +1,34 @@
 import Link from "next/link";
 
+import { breadcrumbJsonLd } from "@/lib/seo";
+
 export function LpLayout({
   kicker,
   title,
   desc,
+  canonical,
   children,
 }: {
   kicker: string;
   title: string;
   desc: string;
+  canonical: string;
   children: React.ReactNode;
 }) {
   return (
     <div className="grid gap-10">
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", url: "/" },
+              { name: title, url: canonical },
+            ])
+          ),
+        }}
+      />
       <header className="grid gap-4">
         <div className="text-xs font-semibold tracking-[0.18em] text-zinc-500">{kicker}</div>
         <h1 className="text-3xl font-semibold tracking-tight text-black sm:text-4xl">{title}</h1>

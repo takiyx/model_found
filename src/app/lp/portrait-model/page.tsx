@@ -40,6 +40,7 @@ export default function Page() {
       kicker="LANDING"
       title="ポートレートモデル募集"
       desc="Model Find は、モデル・カメラマンを見つけるマッチング掲示板。ポートレート撮影の募集を、条件で絞り込んで探せます。"
+      canonical="/lp/portrait-model"
     >
       <div className="grid gap-3">
         <h2 className="text-lg font-semibold tracking-tight text-black">このページでできること</h2>

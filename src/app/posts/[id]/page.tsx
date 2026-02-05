@@ -12,6 +12,7 @@ import { CopyButton } from "@/components/copy-button";
 import { isAdminEmail } from "@/lib/admin";
 import { absoluteUrl } from "@/lib/site";
 import { generatePostMetadata } from "./metadata";
+import { breadcrumbJsonLd } from "@/lib/seo";
 
 import { NoticeBanner } from "@/components/notice-banner";
 
@@ -122,6 +123,19 @@ export default async function PostDetailPage({
             url: absoluteUrl(`/posts/${post.id}`),
             image: post.images?.map((i) => i.url) ?? [],
           }),
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", url: "/" },
+              { name: post.title, url: `/posts/${post.id}` },
+            ])
+          ),
         }}
       />
 

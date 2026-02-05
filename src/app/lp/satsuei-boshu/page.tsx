@@ -39,6 +39,7 @@ export default function Page() {
       kicker="LANDING"
       title="撮影募集"
       desc="Model Find は、モデル・カメラマンを見つけるマッチング掲示板。撮影募集を条件で絞り込んで探せます。"
+      canonical="/lp/satsuei-boshu"
     >
       <div className="grid gap-3">
         <h2 className="text-lg font-semibold tracking-tight text-black">探せる募集</h2>

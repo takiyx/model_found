@@ -39,6 +39,7 @@ export default function Page() {
       <LpLayout
       kicker="LANDING"
       title="ヌードモデル募集"
+      canonical="/lp/nude-model-boshu"
       desc="Model Find は、モデル・カメラマンを見つけるマッチング掲示板。成人向けの募集が含まれる可能性があるため、ルールと安全事項を必ず確認してください。"
     >
       <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
