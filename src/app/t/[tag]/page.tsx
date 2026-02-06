@@ -13,7 +13,13 @@ export async function generateMetadata({ params }: { params: Promise<{ tag: stri
   const { tag } = await params;
   const decoded = normalizeTag(decodeURIComponent(tag));
   if (!decoded) return { title: "タグ" };
-  return generateTagMetadata(decoded);
+
+  // Fast count for better snippets in SERP.
+  const count = await prisma.post.count({
+    where: { isPublic: true, tags: { contains: decoded } },
+  });
+
+  return generateTagMetadata(decoded, count);
 }
 
 export default async function TagPage({

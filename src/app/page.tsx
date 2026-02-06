@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { PostMode, Region } from "@prisma/client";
 import { PostCard } from "@/components/post-card";
@@ -12,11 +13,52 @@ import { normalizeTag, parseTags } from "@/lib/upload";
 import { getRelatedTagsForTag } from "@/lib/related-tags";
 import { getWeeklyPicks } from "@/lib/picks";
 
-export const metadata = {
-  title: "掲示板（最新の募集）",
-  description: "東京・埼玉・千葉などで、モデル/撮影者の募集を条件で絞り込み。写真付き投稿や報酬ありでも探せます。",
-  alternates: { canonical: "/" },
-};
+// SEO strategy (early stage): keep the index clean.
+// Any filtered/search result URL (query params) should be noindex and canonical to `/`.
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    mode?: string;
+    region?: string;
+    q?: string;
+    tag?: string;
+    prefecture?: string;
+    hasImage?: string;
+    days?: string;
+    hasReward?: string;
+    sort?: string;
+  }>;
+}): Promise<Metadata> {
+  const sp = await searchParams;
+
+  const hasAnyParam = Object.values(sp).some((v) => {
+    if (v == null) return false;
+    if (typeof v !== "string") return true;
+    return v.trim() !== "";
+  });
+
+  return {
+    title: "掲示板（最新の募集）",
+    description:
+      "東京・埼玉・千葉などで、モデル/撮影者の募集を条件で絞り込み。写真付き投稿や報酬ありでも探せます。",
+    alternates: { canonical: "/" },
+    robots: hasAnyParam
+      ? {
+          index: false,
+          follow: true,
+          // Extra safety: keep large/duplicate faceted pages out of the index.
+          googleBot: {
+            index: false,
+            follow: true,
+          },
+        }
+      : {
+          index: true,
+          follow: true,
+        },
+  };
+}
 
 function modeLabel(mode: string | undefined) {
   if (mode === "photographer") return "撮影者募集";
@@ -347,7 +389,7 @@ export default async function HomePage({
             <div key={g.tag} className="grid gap-3">
               <div className="flex items-center justify-between">
                 <Link
-                  href={`/?tag=${encodeURIComponent(g.tag)}`}
+                  href={`/t/${encodeURIComponent(g.tag)}`}
                   className="text-sm font-semibold text-zinc-900 hover:underline"
                 >
                   {g.tag}
@@ -381,7 +423,7 @@ export default async function HomePage({
               <div className="text-xs font-medium text-zinc-500">絞り込み中</div>
               <div className="mt-2 flex flex-wrap gap-2">
                 <Link
-                  href={`/?tag=${encodeURIComponent(tag)}`}
+                  href={`/t/${encodeURIComponent(tag)}`}
                   className="rounded-2xl border bg-zinc-900 px-3 py-1.5 text-sm text-white hover:bg-zinc-800"
                 >
                   {tag}
@@ -402,7 +444,7 @@ export default async function HomePage({
                   {relatedTags.map((t) => (
                     <Link
                       key={t}
-                      href={`/?tag=${encodeURIComponent(t)}`}
+                      href={`/t/${encodeURIComponent(t)}`}
                       className="rounded-2xl border bg-white px-3 py-1.5 text-sm hover:bg-zinc-50"
                     >
                       {t}
