@@ -8,6 +8,7 @@ import { FEATURED_TAGS } from "@/lib/curation";
 import { getRelatedTagsForTag } from "@/lib/related-tags";
 import { generateTagMetadata } from "./metadata";
 import { breadcrumbJsonLd } from "@/lib/seo";
+import { absoluteUrl } from "@/lib/site";
 
 export async function generateMetadata({ params }: { params: Promise<{ tag: string }> }) {
   const { tag } = await params;
@@ -66,6 +67,40 @@ export default async function TagPage({
 
   const relatedTags = await getRelatedTagsForTag({ tag: decoded });
 
+  const tagUrlPath = `/t/${encodeURIComponent(decoded)}`;
+  const tagUrl = absoluteUrl(tagUrlPath);
+
+  const itemList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListOrder: "https://schema.org/ItemListOrderDescending",
+    numberOfItems: posts.length,
+    itemListElement: posts.slice(0, 80).map((p, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      url: absoluteUrl(`/posts/${p.id}`),
+      name: p.title,
+      image: (p as any).images?.[0]?.url ? [(p as any).images[0].url] : undefined,
+    })),
+  };
+
+  const collectionPage = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `#${decoded} の募集`,
+    url: tagUrl,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Model Find",
+      url: absoluteUrl("/"),
+    },
+    about: {
+      "@type": "Thing",
+      name: decoded,
+    },
+    mainEntity: itemList,
+  };
+
   return (
     <div className="grid gap-6">
       <script
@@ -76,11 +111,24 @@ export default async function TagPage({
             breadcrumbJsonLd([
               { name: "Home", url: "/" },
               { name: "タグ", url: "/tags" },
-              { name: `#${decoded}`, url: `/t/${encodeURIComponent(decoded)}` },
+              { name: `#${decoded}`, url: tagUrlPath },
             ])
           ),
         }}
       />
+
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPage) }}
+      />
+
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }}
+      />
+
       <header className="rounded-3xl border bg-white p-6">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
