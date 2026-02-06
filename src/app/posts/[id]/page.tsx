@@ -115,12 +115,36 @@ export default async function PostDetailPage({
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "BlogPosting",
+            "@id": absoluteUrl(`/posts/${post.id}#post`),
             headline: post.title,
-            datePublished: post.createdAt,
-            dateModified: post.updatedAt,
-            author: { "@type": "Person", name: post.author.displayName },
-            mainEntityOfPage: absoluteUrl(`/posts/${post.id}`),
+            description: (post.body || "").replace(/\s+/g, " ").trim().slice(0, 200),
+            inLanguage: "ja-JP",
+            isAccessibleForFree: true,
+            datePublished: post.createdAt?.toISOString?.() ?? post.createdAt,
+            dateModified: post.updatedAt?.toISOString?.() ?? post.updatedAt,
+            author: {
+              "@type": "Person",
+              name: post.author.displayName,
+              url: absoluteUrl(`/u/${post.authorId}`),
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "Model Find",
+              url: absoluteUrl("/"),
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": absoluteUrl(`/posts/${post.id}`),
+              url: absoluteUrl(`/posts/${post.id}`),
+            },
             url: absoluteUrl(`/posts/${post.id}`),
+            keywords: post.tags || undefined,
+            about: (post.tags || "")
+              .split(",")
+              .map((t) => t.trim())
+              .filter(Boolean)
+              .slice(0, 20)
+              .map((t) => ({ "@type": "Thing", name: t })),
             image: post.images?.map((i) => i.url) ?? [],
           }),
         }}
