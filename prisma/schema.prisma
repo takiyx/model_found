@@ -115,6 +115,9 @@ model User {
   shootOkText String @default("")
   shootNgText String @default("")
 
+  // Verification (Trust & Safety MVP)
+  isVerified     Boolean @default(false)
+
   isPhotographer Boolean @default(true)
   isModel        Boolean @default(true)
 

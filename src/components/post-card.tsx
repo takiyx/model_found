@@ -5,6 +5,7 @@ import { Prefecture } from "@prisma/client";
 import { prefectureLabels } from "@/lib/prefectures";
 import { FavoriteButton } from "@/components/favorite-button";
 import { TagChip } from "@/components/tag-chip";
+import { BadgeCheck } from "lucide-react";
 
 export type PostCardData = {
   id: string;
@@ -16,7 +17,7 @@ export type PostCardData = {
   place: string;
   dateText: string;
   tags: string;
-  author: { displayName: string };
+  author: { displayName: string; isVerified: boolean };
   images: { id?: string; url: string; alt: string }[];
 };
 
@@ -98,8 +99,13 @@ export function PostCard({
           ) : null}
 
           <div className="mt-4 flex items-center justify-between text-xs text-zinc-500">
-            <span className="truncate">{post.author.displayName}</span>
-            <span className="shrink-0">
+            <span className="flex items-center gap-1 truncate text-black/80 font-medium">
+              {post.author.displayName}
+              {post.author.isVerified && (
+                <BadgeCheck className="h-3.5 w-3.5 text-sky-500 flex-shrink-0" />
+              )}
+            </span>
+            <span className="shrink-0 text-zinc-400">
               {new Date(post.createdAt).toLocaleDateString("ja-JP")}
             </span>
           </div>

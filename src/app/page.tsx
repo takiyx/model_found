@@ -200,6 +200,7 @@ export default async function HomePage({
       interests: true,
       isPhotographer: true,
       isModel: true,
+      isVerified: true,
     },
   });
 
@@ -338,6 +339,21 @@ export default async function HomePage({
               <Link href="/lp/portrait-model" className={chipBase}>ポートレートモデル募集</Link>
               <Link href="/lp/satsuei-boshu" className={chipBase}>撮影募集</Link>
               <Link href="/lp/nude-model-boshu" className={chipBase}>ヌードモデル募集</Link>
+            </div>
+          </div>
+        </div>
+
+        {/* TRUST BANNER MVP */}
+        <div className="mt-6 rounded-xl border border-rose-200 bg-rose-50/50 p-4">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-1.5 font-bold text-rose-900">
+                <svg className="h-5 w-5 text-rose-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                日本で最も安全なアートとポートレートの互助コミュニティ
+              </div>
+              <p className="mt-1 text-xs text-rose-700 font-medium">
+                当サイトは「本人確認システム（✔️ブルーバッジ）」「24時間の監視体制」「メッセージの非公開」を徹底し、悪質なユーザーやカメラマンを厳しく排除しています。
+              </p>
             </div>
           </div>
         </div>

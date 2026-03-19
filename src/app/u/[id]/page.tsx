@@ -9,6 +9,7 @@ import { getSession } from "@/lib/session";
 import { BlockButton } from "@/components/block-button";
 import { ImageGallery } from "@/components/image-gallery";
 import Image from "next/image";
+import { BadgeCheck } from "lucide-react";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
@@ -72,6 +73,7 @@ export default async function UserPage({
       portfolioImages: true,
       shootOkText: true,
       shootNgText: true,
+      isVerified: true,
       createdAt: true,
     },
   });
@@ -92,7 +94,7 @@ export default async function UserPage({
       place: true,
       dateText: true,
       tags: true,
-      author: { select: { displayName: true } },
+      author: { select: { displayName: true, isVerified: true } },
       images: { orderBy: { createdAt: "asc" }, take: 1, select: { url: true, alt: true, id: true } },
     },
   });
@@ -111,10 +113,10 @@ export default async function UserPage({
   const favoredPostIds = new Set<string>();
   if (currentUserId && posts.length) {
     const fav = await prisma.favoritePost.findMany({
-      where: { userId: currentUserId, postId: { in: posts.map((p) => p.id) } },
+      where: { userId: currentUserId, postId: { in: posts.map((p: any) => p.id) } },
       select: { postId: true },
     });
-    fav.forEach((x) => favoredPostIds.add(x.postId));
+    fav.forEach((x: any) => favoredPostIds.add(x.postId));
   }
 
   const portfolioImages: { id: string; url: string; alt: string }[] = (() => {
@@ -138,7 +140,12 @@ export default async function UserPage({
             </div>
             <div>
               <div className="text-xs font-medium text-zinc-500">Creator</div>
-              <h1 className="mt-2 text-2xl font-semibold tracking-tight">{user.displayName}</h1>
+              <h1 className="mt-2 flex items-center gap-2 text-2xl font-semibold tracking-tight">
+                {user.displayName}
+                {user.isVerified && (
+                  <BadgeCheck className="h-6 w-6 text-sky-500 flex-shrink-0" />
+                )}
+              </h1>
               <div className="mt-2 flex flex-wrap gap-2 text-xs text-zinc-600">
                 {user.isPhotographer ? (
                   <span className="rounded-full border bg-zinc-50 px-2 py-0.5">撮影者</span>
@@ -263,7 +270,7 @@ export default async function UserPage({
           <div className="rounded-3xl border bg-white p-10 text-sm text-zinc-600">まだ投稿がありません。</div>
         ) : (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((p) => (
+            {posts.map((p: any) => (
               <PostCard key={p.id} post={p as any} favorited={favoredPostIds.has(p.id)} />
             ))}
           </div>

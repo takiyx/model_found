@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Prefecture } from "@prisma/client";
 import { prefectureLabels } from "@/lib/prefectures";
 import { FavoriteButton } from "@/components/favorite-button";
+import { BadgeCheck } from "lucide-react";
 
 export type UserCardData = {
   id: string;
@@ -13,6 +14,7 @@ export type UserCardData = {
   interests: string;
   isPhotographer: boolean;
   isModel: boolean;
+  isVerified: boolean;
 };
 
 function chips(u: UserCardData) {
@@ -80,8 +82,11 @@ export function UserCard({
         </div>
 
         <div className="p-5">
-          <div className="truncate text-base font-semibold tracking-tight text-black">
+          <div className="flex items-center gap-1.5 truncate text-base font-semibold tracking-tight text-black">
             {user.displayName}
+            {user.isVerified && (
+              <BadgeCheck className="h-4 w-4 text-sky-500 flex-shrink-0" />
+            )}
           </div>
           <div className="mt-2 text-xs text-zinc-600">{user.basePlace ? user.basePlace : ""}</div>
           {interests.length > 0 ? (
