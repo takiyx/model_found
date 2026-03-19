@@ -330,6 +330,81 @@ export const articles: Article[] = [
       <h2>ストロボ＋カラーフィルター</h2>
       <p>モデルにストロボを当てる際、ホワイトバランスを思い切り「青」に振り、ストロボにオレンジ色のフィルター（CTO）を被せることで、夕焼けをさらに強調するハリウッド映画のようなテクニックもあります。</p>
     `
+  },
+  {
+    slug: "nude-model-safety-guide",
+    title: "初めてのヌードモデル募集。相場と危険なカメラマンの見分け方",
+    description: "高額な報酬に釣られて痛い目を見ないために。ポートレート・ヌードモデルのリアルな相場と、絶対に避けるべき地雷カメラマンの特徴を暴露します。",
+    coverImage: "https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&q=80",
+    publishedAt: "2026-03-22T00:00:00Z",
+    tags: ["安全ガイド", "相場", "ヌードモデル", "被写体向け"],
+    content: `
+      <h2>はじめに：ヌードモデルの相場ってどれくらい？</h2>
+      <p>「1時間で5万円出します！」といった異常な高額報酬のDMを受け取ったことはありませんか？<br />一般的な個人間のポートレートやセミヌード、グラビア撮影の相場は、時給換算で<strong>5,000円〜20,000円程度</strong>がリアルな目安です。これより著しく高い場合は、別の目的（売春や動画の無断販売）が隠れている詐欺案件の可能性が極めて高く、危険です。</p>
+
+      <h2>絶対に避けるべき「地雷カメラマン」の3つの特徴</h2>
+      <ul>
+        <li><strong>作例（ポートフォリオ）が存在しない：</strong> どんな写真を撮ってきたのか証明できない人は、そもそもカメラマンですらない場合があります。</li>
+        <li><strong>密室（ホテルや車）に直行しようとする：</strong> 初回の面談や顔合わせを拒み、いきなり密室を指定してくる相手とは絶対に取引してはいけません。</li>
+        <li><strong>「すぐにお金が入るよ」と急かす：</strong> 判断を急がせ、外部のメッセージアプリ（LINE等）へ即座に誘導する手口は、詐欺の常套手段です。</li>
+      </ul>
+
+      <h2>安全に案件を探すなら「専用掲示板」がおすすめ</h2>
+      <p>SNSの海の中から安全なカメラマンを見つけ出すのは至難の業です。まずは条件や公開範囲がしっかりと明記される専用のプラットフォームを活用しましょう。</p>
+      
+      <div style="margin-top: 40px; text-align: center;">
+        <a href="/lp/nude-model-keijiban" style="display: inline-block; padding: 12px 24px; background-color: #be123c; color: white; border-radius: 9999px; text-decoration: none; font-weight: bold;">安全に使えるヌードモデル掲示板を見る</a>
+      </div>
+    `
+  },
+  {
+    slug: "gravure-tfp-contract",
+    title: "グラビア・ヌード撮影の相互無償（TFP）で絶対に書くべき同意書のテンプレ",
+    description: "「タダで撮ってあげる」の罠。相互無償でも絶対にうやむやにしてはいけない、データ流出や商用利用を防ぐための同意書の書き方。",
+    coverImage: "https://images.unsplash.com/photo-1450101499163-c8848c66cb85?auto=format&fit=crop&q=80",
+    publishedAt: "2026-03-24T00:00:00Z",
+    tags: ["同意書", "相互無償", "トラブル防止", "契約"],
+    content: `
+      <h2>なぜ相互無償（TFP）でも同意書が必要なのか？</h2>
+      <p>「無料だから」と口約束だけで撮影を終えてしまうと、後日<strong>「SNSで勝手に顔出し公開された」「知らない写真集で勝手に販売されていた」</strong>といった致命的なトラブルに発展します。</p>
+
+      <h2>必ず盛り込むべき4つの項目</h2>
+      <ol>
+        <li><strong>利用目的の明示：</strong> SNS（Twitter/Instagram）のポートフォリオ掲載のみか、写真展での展示や商用販売（同人誌等）を含むのかを箇条書きで定義します。</li>
+        <li><strong>公開前の確認義務：</strong> 「モデル本人が写真をチェックし、許可を出したものだけを公開できる」という一行を必ず入れましょう。</li>
+        <li><strong>顔出しと身バレ防止：</strong> 「SNS公開時は顔が特定できないようモザイク処理をする」などの条件を明記します。</li>
+        <li><strong>データ削除の権利：</strong> モデル側からの要請があった場合、ネット上の公開を速やかに停止し、削除する義務を定めます。</li>
+      </ol>
+
+      <p>紙の契約書が面倒な場合は、最低限LINEやサイト内のDMなどの「テキスト（文字）」として双方の合意履歴を残しておくことが、いざという時の最大の盾になります。</p>
+
+      <div style="margin-top: 40px; text-align: center;">
+        <a href="/lp/nude-model-keijiban" style="display: inline-block; padding: 12px 24px; background-color: #be123c; color: white; border-radius: 9999px; text-decoration: none; font-weight: bold;">条件が明記された募集（掲示板）を探す</a>
+      </div>
+    `
+  },
+  {
+    slug: "how-to-start-nude-modeling",
+    title: "脱ぐ前に確認！ヌードモデルの始め方と身バレ防止の鉄則",
+    description: "これから被写体やグラビア活動を始めたい方向けに。一番不安な「身バレ・顔バレ」の防ぎ方と、初めてのモデル撮影を安全にお金にする方法。",
+    coverImage: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80",
+    publishedAt: "2026-03-26T00:00:00Z",
+    tags: ["身バレ対策", "顔出しNG", "ヌードモデル掲示板", "始め方"],
+    content: `
+      <h2>絶対に守るべき身バレ防止の鉄則</h2>
+      <p>ヌードモデル活動において「顔出し」は必須ではありません。「首から下のみの撮影」「お面やマスクの着用」など、条件を絞って活動している人気モデルは大勢います。</p>
+      <p><strong>デジタルタトゥー</strong>は一度ネットに出回ると消すことが非常に困難です。少しでも不安がある場合は、最初のうちは「完全に顔出しNG」として条件を明記して募集をかけましょう。</p>
+
+      <h2>タトゥー（刺青）やホクロ、背景にも注意</h2>
+      <p>顔を隠していても、特徴的なタトゥーやホクロ、さらには「自宅の背景の家具」などから個人が特定されるケースがあります。撮影場所には必ずスタジオやホテルなど、生活感のないレンタルスペースを指定してください。</p>
+
+      <h2>安全なカメラマンを見つけて、第一歩を踏み出そう</h2>
+      <p>「顔出しNG・事前面談必須・同意書あり」という厳しめの条件を提示しても、真面目にアート作品を撮りたい優良なカメラマンは必ず応じてくれます。条件を絞り込んで、自分に合った撮影案件を見つけてください。</p>
+
+      <div style="margin-top: 40px; text-align: center;">
+        <a href="/lp/nude-model-keijiban" style="display: inline-block; padding: 12px 24px; background-color: #be123c; color: white; border-radius: 9999px; text-decoration: none; font-weight: bold;">さっそくヌードモデル掲示板で探してみる</a>
+      </div>
+    `
   }
 ];
 

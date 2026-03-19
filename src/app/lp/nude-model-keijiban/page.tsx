@@ -78,22 +78,63 @@ export default async function Page() {
         <p className="mt-2">条件や公開範囲を事前に確認し、同意のない撮影・公開につながる募集には近づかないでください。</p>
       </div>
 
-      <div className="grid gap-3">
-        <h2 className="text-lg font-semibold tracking-tight text-black">掲示板としての使い方</h2>
-        <ul className="list-disc space-y-1 pl-5 text-sm text-zinc-700">
-          <li>地域（都道府県）と期間でまず絞り込む</li>
-          <li>報酬、画像、本文の記載から条件の具体性を確認する</li>
-          <li>不安がある場合はやり取りを中断する</li>
-        </ul>
-      </div>
+      <div className="grid gap-8 mt-8">
+        <section>
+          <h2 className="text-xl font-bold tracking-tight text-black border-b pb-2">ヌードモデル・グラビア掲示板とは？</h2>
+          <div className="mt-4 text-sm text-zinc-700 space-y-3 leading-relaxed">
+            <p>
+              「ヌードモデル（被写体）掲示板」とは、ポートレートやアート作品、グラビア撮影を目的としたモデルとカメラマンをつなぐマッチングプラットフォームです。
+              表現の自由度が高く、芸術的な作品づくりを目指すクリエイターが多く利用しています。
+            </p>
+            <p>
+              しかし、露出度の高い撮影である以上、通常のポートレート撮影よりも<strong>「条件のすり合わせ」「プライバシーの保護」「トラブル防止」</strong>に細心の注意を払う必要があります。
+              本サイトでは、双方が安心して撮影に臨めるよう、最低限のルールと知識を共有しています。
+            </p>
+          </div>
+        </section>
 
-      <div className="grid gap-3">
-        <h2 className="text-lg font-semibold tracking-tight text-black">最低限の安全ルール</h2>
-        <ul className="list-disc space-y-1 pl-5 text-sm text-zinc-700">
-          <li>初回は事前面談（人目のある場所）→ 合意後に撮影</li>
-          <li>外部連絡へ誘導されても、条件が固まるまでは慎重に</li>
-          <li>公開範囲・データ扱い（掲載先/期間/削除）を文章で残す</li>
-        </ul>
+        <section>
+          <h2 className="text-xl font-bold tracking-tight text-black border-b pb-2">ヌード・グラビア撮影の相場と報酬体系</h2>
+          <div className="mt-4 text-sm text-zinc-700 space-y-3 leading-relaxed">
+            <p>
+              募集には大きく分けて「有償依頼」と「相互無償（TFP）」の2種類が存在します。
+            </p>
+            <ul className="list-disc pl-5 space-y-2 mt-2">
+              <li><strong>有償依頼（相場）：</strong> 露出度（水着・ランジェリー・セミヌード・完全ヌード）や拘束時間によって大きく変動します。一般的に、個人間の直接取引では時給5,000円〜20,000円以上など幅広いです。交通費やスタジオ代の負担者も必ず事前に確認しましょう。</li>
+              <li><strong>相互無償（TFP）：</strong> モデルはデータを無料で貰える、カメラマンは作品撮りができるというメリットの交換です。金銭のやり取りがないため「対等な立場」ですが、スタジオ代の割り勘ルールなどで揉めないよう事前の合意が必須です。</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-bold tracking-tight text-black border-b pb-2">撮影前の絶対ルール：身バレ防止と「同意書」の必須化</h2>
+          <div className="mt-4 text-sm text-zinc-700 space-y-3 leading-relaxed">
+            <p>
+              ヌードやグラビアの撮影において、最も多いトラブルが<strong>「データの無断公開」「意図しない場所への流出」</strong>です。後悔しないために以下の対策を徹底してください。
+            </p>
+            <ol className="list-decimal pl-5 space-y-2 mt-2">
+              <li><strong>同意書（契約書）を交わす：</strong> 撮影前に、写真の利用目的（SNS掲載のみか、写真集での販売か）、掲載期間、顔出しの有無、データ削除の条件を明記した簡単な同意書にサインを交わしましょう。</li>
+              <li><strong>身分証明書の確認：</strong> お互いに本名と身分証明書（免許証など）を確認し合うことで、「匿名だから逃げられる」というリスクを圧倒的に減らすことができます。</li>
+              <li><strong>「顔出しNG」の徹底：</strong> 身バレを防ぐ場合、顔を写さない構図に限定するか、公開前に必ずモデル本人がスタンプやモザイク処理を確認するフローを約束しましょう。</li>
+            </ol>
+          </div>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-bold tracking-tight text-black border-b pb-2">危険なカメラマン・地雷案件の5つの特徴</h2>
+          <div className="mt-4 text-sm text-zinc-700 space-y-3 leading-relaxed">
+            <p>
+              以下のような特徴が見られる募集やメッセージには、絶対に応じないよう注意してください。
+            </p>
+            <ul className="list-disc pl-5 space-y-2 mt-2">
+              <li><strong>異常な高額報酬：</strong> 「1時間10万円」など相場からかけ離れた甘い言葉で誘うアカウントは、詐欺や別の目的（売春の強要など）の可能性が極めて高いです。</li>
+              <li><strong>初回の顔合わせを拒む：</strong> 撮影前にカフェなど「人目のある場所」での事前面談（30分程度）を提案し、それを面倒くさがる・拒絶する相手は危険です。</li>
+              <li><strong>密室や車を即座に指定する：</strong> 信頼関係がない状態での密室（ホテルや相手の自宅、車内）での撮影は密室トラブルの元です。</li>
+              <li><strong>過去の作例（ポートフォリオ）がない：</strong> SNSのフォロワーがゼロ、または他人の写真を無断転載しているようなアカウントは避けましょう。</li>
+              <li><strong>外部のメッセージアプリ（LINE等）へすぐ誘導する：</strong> プラットフォームの監視を逃れるため、すぐにLINEへ移行したがる相手には警戒が必要です。</li>
+            </ul>
+          </div>
+        </section>
       </div>
 
       <div className="mt-8 grid gap-4">
