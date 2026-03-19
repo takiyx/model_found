@@ -1,5 +1,8 @@
 import { LpLayout, Faq, RelatedLpLinks } from "../_shared";
 import { JsonLd, baseStructuredData, faqStructuredData, absoluteUrl } from "../_jsonld";
+import { prisma } from "@/lib/db";
+import { PostCard } from "@/components/post-card";
+import Link from "next/link";
 
 export const metadata = {
   title: "ヌードモデル掲示板｜Model Find",
@@ -8,8 +11,37 @@ export const metadata = {
   alternates: { canonical: "/lp/nude-model-keijiban" },
 };
 
-export default function Page() {
+export default async function Page() {
   const url = absoluteUrl("/lp/nude-model-keijiban");
+
+  // SEED OR: Fetch dynamic posts that make this page ALIVE to Googlebot
+  const posts = await prisma.post.findMany({
+    where: {
+      isPublic: true,
+      OR: [
+        { tags: { contains: "ヌード" } },
+        { tags: { contains: "グラビア" } },
+        { tags: { contains: "アダルト" } },
+        { tags: { contains: "ランジェリー" } }
+      ]
+    },
+    select: {
+      id: true,
+      title: true,
+      mode: true,
+      prefecture: true,
+      createdAt: true,
+      reward: true,
+      place: true,
+      dateText: true,
+      tags: true,
+      author: { select: { displayName: true } },
+      images: { orderBy: { createdAt: "asc" }, take: 1, select: { url: true, alt: true, id: true } },
+    },
+    orderBy: { createdAt: "desc" },
+    take: 9,
+  });
+
   return (
     <>
       <JsonLd data={baseStructuredData()} />
@@ -62,6 +94,28 @@ export default function Page() {
           <li>外部連絡へ誘導されても、条件が固まるまでは慎重に</li>
           <li>公開範囲・データ扱い（掲載先/期間/削除）を文章で残す</li>
         </ul>
+      </div>
+
+      <div className="mt-8 grid gap-4">
+        <h2 className="text-xl font-bold tracking-tight text-black border-b pb-2">新着の募集（関連）</h2>
+        {posts.length === 0 ? (
+          <div className="rounded-xl bg-zinc-50 p-6 text-sm text-zinc-500">
+            現在、関連する募集は投稿されていません。
+          </div>
+        ) : (
+          <>
+            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+              {posts.map((p: any) => (
+                <PostCard key={p.id} post={p as any} favorited={false} />
+              ))}
+            </div>
+            <div className="mt-4 text-center">
+              <Link href="/t/%E3%83%8C%E3%83%BC%E3%83%89" className="inline-block rounded-full bg-zinc-900 px-6 py-2.5 text-sm font-semibold text-white hover:bg-zinc-800 transition">
+                もっと掲示板の募集を見る
+              </Link>
+            </div>
+          </>
+        )}
       </div>
 
       <Faq

@@ -77,6 +77,9 @@ export default function RootLayout({
                   <a className="hover:text-zinc-900 underline-offset-2 hover:underline font-bold text-zinc-700" href="/articles">
                     コラム
                   </a>
+                  <a className="hover:text-zinc-900 underline-offset-2 hover:underline text-rose-700 font-medium" href="/lp/nude-model-keijiban">
+                    ヌードモデル掲示板
+                  </a>
                   <a className="hover:text-zinc-900 underline-offset-2 hover:underline" href="/rules">
                     ルール
                   </a>
