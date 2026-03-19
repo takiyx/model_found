@@ -6,6 +6,7 @@ import { assertNotBanned } from "@/lib/user-status";
 import { saveImageFiles, parseTags } from "@/lib/upload";
 import { regionFromPrefecture } from "@/lib/prefectures";
 import { assertPostRateLimit, shouldAutoHidePost, stripExternalUrls } from "@/lib/post-guard";
+import { sharePostToTwitter } from "@/lib/twitter";
 
 export const runtime = "nodejs";
 import { PostMode, Prefecture } from "@prisma/client";
@@ -112,6 +113,8 @@ export async function POST(req: Request) {
       select: { id: true },
     });
 
+    await sharePostToTwitter(post.id).catch(console.error);
+
     return NextResponse.json({ ok: true, post, sanitized });
   }
 
@@ -150,6 +153,8 @@ export async function POST(req: Request) {
     },
     select: { id: true },
   });
+
+  await sharePostToTwitter(post.id).catch(console.error);
 
   return NextResponse.json({ ok: true, post, sanitized });
 }
