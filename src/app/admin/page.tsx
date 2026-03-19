@@ -26,6 +26,9 @@ export default async function AdminPage() {
           <p className="text-sm text-zinc-600">直近の投稿を管理します（削除 / 非公開）。</p>
         </div>
         <div className="flex gap-4 text-sm">
+          <Link className="text-zinc-600 hover:text-zinc-900 underline" href="/admin/users">
+            ユーザー管理
+          </Link>
           <Link className="text-zinc-600 hover:text-zinc-900 underline" href="/admin/reports">
             通報
           </Link>
