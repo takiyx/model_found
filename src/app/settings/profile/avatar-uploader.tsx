@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import imageCompression from "browser-image-compression";
 
 export function AvatarUploader({
   initialUrl,
@@ -25,16 +26,23 @@ export function AvatarUploader({
         <div className="grid gap-2">
           <div className="text-sm font-medium text-zinc-900">アイコン画像</div>
           <input
+            id="avatar-upload-input"
             type="file"
+            className="hidden"
             accept="image/jpeg,image/png,image/webp,image/gif"
             disabled={uploading}
             onChange={async (e) => {
-              const f = e.target.files?.[0];
-              if (!f) return;
+              const originalFile = e.target.files?.[0];
+              if (!originalFile) return;
 
               setUploading(true);
               setError(null);
               setDone(false);
+
+              let f = originalFile;
+              try {
+                f = await imageCompression(originalFile, { maxSizeMB: 7.5, maxWidthOrHeight: 2048, useWebWorker: true });
+              } catch (err) {}
 
               const form = new FormData();
               form.append("avatar", f);
@@ -57,6 +65,12 @@ export function AvatarUploader({
               setTimeout(() => setDone(false), 1200);
             }}
           />
+          <label
+            htmlFor="avatar-upload-input"
+            className="w-fit cursor-pointer rounded-xl border bg-white px-4 py-2 text-sm font-semibold hover:bg-zinc-50"
+          >
+            画像を選択
+          </label>
           <div className="text-xs text-zinc-500">最大 8MB / jpg, png, webp, gif</div>
         </div>
       </div>

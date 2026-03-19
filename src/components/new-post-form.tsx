@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Prefecture } from "@prisma/client";
 import { PrefectureSelect } from "@/components/prefecture-select";
+import imageCompression from "browser-image-compression";
 
 type PostMode = "PHOTOGRAPHER" | "MODEL";
 
@@ -48,9 +49,15 @@ export function NewPostForm() {
         form.set("contactText", contactText);
         form.set("body", body);
         if (images) {
-          Array.from(images)
-            .slice(0, 6)
-            .forEach((f) => form.append("images", f));
+          const files = Array.from(images).slice(0, 6);
+          for (const f of files) {
+            try {
+              const compressed = await imageCompression(f, { maxSizeMB: 7.5, maxWidthOrHeight: 4096, useWebWorker: true });
+              form.append("images", compressed);
+            } catch (err) {
+              form.append("images", f);
+            }
+          }
         }
 
         const res = await fetch("/api/posts", {

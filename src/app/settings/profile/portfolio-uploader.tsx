@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import imageCompression from "browser-image-compression";
 
 export function PortfolioUploader({
   initialUrls,
@@ -19,33 +20,51 @@ export function PortfolioUploader({
           <div className="text-sm font-medium text-zinc-900">ポートフォリオ画像</div>
           <div className="mt-1 text-xs text-zinc-500">最大 9枚 / 8MB（jpg, png, webp, gif）</div>
         </div>
-        <input
-          type="file"
-          accept="image/jpeg,image/png,image/webp,image/gif"
-          multiple
-          disabled={uploading}
-          onChange={async (e) => {
-            const files = Array.from(e.target.files ?? []);
-            if (files.length === 0) return;
+        <div className="grid gap-2">
+          <input
+            id="portfolio-upload-input"
+            type="file"
+            className="hidden"
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            multiple
+            disabled={uploading}
+            onChange={async (e) => {
+              const files = Array.from(e.target.files ?? []);
+              if (files.length === 0) return;
 
-            setUploading(true);
-            setError(null);
+              setUploading(true);
+              setError(null);
 
-            const form = new FormData();
-            files.slice(0, 9).forEach((f) => form.append("images", f));
+              const form = new FormData();
+              
+              const filesToCompress = files.slice(0, 9);
+              for (const originalFile of filesToCompress) {
+                let f = originalFile;
+                try {
+                  f = await imageCompression(originalFile, { maxSizeMB: 7.5, maxWidthOrHeight: 4096, useWebWorker: true });
+                } catch (err) {}
+                form.append("images", f);
+              }
 
-            const res = await fetch("/api/profile/portfolio", { method: "POST", body: form });
-            const data = await res.json().catch(() => null);
-            setUploading(false);
+              const res = await fetch("/api/profile/portfolio", { method: "POST", body: form });
+              const data = await res.json().catch(() => null);
+              setUploading(false);
 
-            if (!res.ok) {
-              setError("アップロードに失敗しました");
-              return;
-            }
+              if (!res.ok) {
+                setError("アップロードに失敗しました");
+                return;
+              }
 
-            onUploaded((data?.portfolioImages ?? []) as string[]);
-          }}
-        />
+              onUploaded((data?.portfolioImages ?? []) as string[]);
+            }}
+          />
+          <label
+            htmlFor="portfolio-upload-input"
+            className="w-fit cursor-pointer rounded-xl border bg-white px-4 py-2 text-sm font-semibold hover:bg-zinc-50"
+          >
+            画像を選択
+          </label>
+        </div>
       </div>
 
       {initialUrls.length ? (
