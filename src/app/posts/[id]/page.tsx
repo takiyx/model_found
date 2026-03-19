@@ -15,6 +15,7 @@ import { generatePostMetadata } from "./metadata";
 import { breadcrumbJsonLd } from "@/lib/seo";
 
 import { NoticeBanner } from "@/components/notice-banner";
+import { DeletePostButton } from "@/components/delete-post-button";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -185,12 +186,15 @@ export default async function PostDetailPage({
 
           <div className="flex items-center gap-2">
             {currentUserId === post.authorId ? (
-              <Link
-                className="rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
-                href={`/posts/${post.id}/edit`}
-              >
-                編集
-              </Link>
+              <>
+                <Link
+                  className="rounded-full border px-3 py-1.5 text-sm hover:bg-zinc-50"
+                  href={`/posts/${post.id}/edit`}
+                >
+                  編集
+                </Link>
+                <DeletePostButton postId={post.id} />
+              </>
             ) : null}
             {session?.user && currentUserId !== post.authorId ? (
               <BlockButton blockedId={post.authorId} initialBlocked={initialBlocked} />
@@ -286,7 +290,7 @@ export default async function PostDetailPage({
             ) : (
               <div className="rounded-2xl border bg-zinc-50 p-4 text-sm text-zinc-600">
                 迷惑行為対策のため、連絡先は <span className="font-medium text-zinc-900">相手が返信した後</span> に表示されます。
-                まずは站内メッセージで連絡してください。
+                まずはサイト内メッセージで連絡してください。
               </div>
             )}
           </div>

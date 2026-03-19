@@ -158,7 +158,7 @@ model Post {
   place       String @default("") // 場所（例：渋谷 / 新宿）
   dateText    String @default("") // 日時（自由記述）
   tags        String @default("") // タグ（カンマ区切り）
-  contactText String @default("") // 連絡先（例：メール / SNS / 站外連絡）
+  contactText String @default("") // 連絡先（例：メール / SNS / 外部連絡）
 
   isPublic Boolean @default(true)
 

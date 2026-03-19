@@ -30,7 +30,7 @@ export default function RulesPage() {
       <section className="rounded-3xl border bg-white p-6">
         <h2 className="text-lg font-semibold">安全のコツ</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-700">
-          <li>最初は站内メッセージでやりとりし、相手の反応や内容を確認。</li>
+          <li>最初はサイト内メッセージでやりとりし、相手の反応や内容を確認。</li>
           <li>高額報酬/当日手渡し/自撮りのみ等、違和感があれば慎重に。</li>
           <li>個人情報（住所・本名・連絡先）は信頼できる相手に最小限で。</li>
         </ul>

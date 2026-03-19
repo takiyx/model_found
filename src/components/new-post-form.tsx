@@ -112,7 +112,7 @@ export function NewPostForm() {
 【条件】衣装/メイク/露出NG など
 【報酬】交通費 / 謝礼 / 相互無償
 【データ】納品枚数・期限・レタッチ範囲
-【連絡】まずは站内メッセージ推奨`}
+【連絡】まずはサイト内メッセージ推奨`}
             />
 
             <div className="flex flex-wrap gap-2">
@@ -120,7 +120,7 @@ export function NewPostForm() {
                 type="button"
                 className="rounded-xl border bg-white px-3 py-1.5 text-xs font-semibold hover:bg-zinc-50"
                 onClick={async () => {
-                  const t = `【目的】ポートレート / 作品撮り / 宣材 など\n【日時】候補日・所要時間\n【場所】最寄り駅・屋内/屋外・集合/解散\n【条件】衣装/メイク/露出NG など\n【報酬】交通費 / 謝礼 / 相互無償\n【データ】納品枚数・期限・レタッチ範囲\n【連絡】まずは站内メッセージ推奨`;
+                  const t = `【目的】ポートレート / 作品撮り / 宣材 など\n【日時】候補日・所要時間\n【場所】最寄り駅・屋内/屋外・集合/解散\n【条件】衣装/メイク/露出NG など\n【報酬】交通費 / 謝礼 / 相互無償\n【データ】納品枚数・期限・レタッチ範囲\n【連絡】まずはサイト内メッセージ推奨`;
                   await navigator.clipboard.writeText(t);
                 }}
               >
@@ -130,7 +130,7 @@ export function NewPostForm() {
                 type="button"
                 className="rounded-xl border bg-white px-3 py-1.5 text-xs font-semibold hover:bg-zinc-50"
                 onClick={() => {
-                  const t = `【目的】ポートレート / 作品撮り / 宣材 など\n【日時】候補日・所要時間\n【場所】最寄り駅・屋内/屋外・集合/解散\n【条件】衣装/メイク/露出NG など\n【報酬】交通費 / 謝礼 / 相互無償\n【データ】納品枚数・期限・レタッチ範囲\n【連絡】まずは站内メッセージ推奨`;
+                  const t = `【目的】ポートレート / 作品撮り / 宣材 など\n【日時】候補日・所要時間\n【場所】最寄り駅・屋内/屋外・集合/解散\n【条件】衣装/メイク/露出NG など\n【報酬】交通費 / 謝礼 / 相互無償\n【データ】納品枚数・期限・レタッチ範囲\n【連絡】まずはサイト内メッセージ推奨`;
                   setBody((prev) => (prev ? `${prev}\n\n${t}` : t));
                   setTimeout(focusBody, 0);
                 }}
@@ -142,7 +142,7 @@ export function NewPostForm() {
                 type="button"
                 className="rounded-xl border bg-white px-3 py-1.5 text-xs font-semibold hover:bg-zinc-50"
                 onClick={() => {
-                  const t = `【目的】ポートレート / 作品撮り / 宣材 など\n【日時】候補日・所要時間\n【場所】最寄り駅・屋内/屋外・集合/解散\n【条件】衣装/メイク/露出NG など\n【報酬】交通費 / 謝礼 / 相互無償\n【データ】納品枚数・期限・レタッチ範囲\n【連絡】まずは站内メッセージ推奨`;
+                  const t = `【目的】ポートレート / 作品撮り / 宣材 など\n【日時】候補日・所要時間\n【場所】最寄り駅・屋内/屋外・集合/解散\n【条件】衣装/メイク/露出NG など\n【報酬】交通費 / 謝礼 / 相互無償\n【データ】納品枚数・期限・レタッチ範囲\n【連絡】まずはサイト内メッセージ推奨`;
                   const ok = window.confirm("本文をテンプレで上書きしますか？（現在の本文は消えます）");
                   if (!ok) return;
                   setBody(t);
@@ -253,7 +253,7 @@ export function NewPostForm() {
           className="min-h-48 rounded-xl border px-3 py-2"
           value={body}
           onChange={(e) => setBody(e.target.value)}
-          placeholder={`・自己紹介\n・希望内容\n・条件\n・連絡方法（站内メッセージ推奨）`}
+          placeholder={`・自己紹介\n・希望内容\n・条件\n・連絡方法（サイト内メッセージ推奨）`}
           required
         />
         <div className="text-xs text-zinc-500">
