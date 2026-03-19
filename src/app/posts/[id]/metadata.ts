@@ -51,13 +51,11 @@ export async function generatePostMetadata(id: string): Promise<Metadata> {
       publishedTime: post.createdAt.toISOString?.() ?? (post.createdAt as any),
       modifiedTime: post.updatedAt.toISOString?.() ?? (post.updatedAt as any),
       authors: post.author?.displayName ? [post.author.displayName] : undefined,
-      images: image ? [{ url: image }] : undefined,
     },
     twitter: {
-      card: image ? "summary_large_image" : "summary",
+      card: "summary_large_image",
       title: post.title,
       description: desc,
-      images: image ? [image] : undefined,
     },
   };
 }
