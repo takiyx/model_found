@@ -42,7 +42,7 @@ export function AvatarUploader({
 
               let f = originalFile;
               try {
-                f = await imageCompression(originalFile, { maxSizeMB: 7.5, maxWidthOrHeight: 2048, useWebWorker: true });
+                f = await imageCompression(originalFile, { maxSizeMB: 1.0, maxWidthOrHeight: 1080, useWebWorker: true, initialQuality: 0.8 });
               } catch (err) {}
 
               const form = new FormData();

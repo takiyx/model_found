@@ -42,7 +42,7 @@ export function PortfolioUploader({
               for (const originalFile of filesToCompress) {
                 let f = originalFile;
                 try {
-                  f = await imageCompression(originalFile, { maxSizeMB: 7.5, maxWidthOrHeight: 4096, useWebWorker: true });
+                  f = await imageCompression(originalFile, { maxSizeMB: 0.6, maxWidthOrHeight: 1920, useWebWorker: true, initialQuality: 0.8 });
                 } catch (err) {}
                 form.append("images", f);
               }

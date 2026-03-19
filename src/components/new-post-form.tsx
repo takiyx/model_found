@@ -52,7 +52,7 @@ export function NewPostForm() {
           const files = Array.from(images).slice(0, 6);
           for (const f of files) {
             try {
-              const compressed = await imageCompression(f, { maxSizeMB: 7.5, maxWidthOrHeight: 4096, useWebWorker: true });
+              const compressed = await imageCompression(f, { maxSizeMB: 0.6, maxWidthOrHeight: 1920, useWebWorker: true, initialQuality: 0.8 });
               form.append("images", compressed);
             } catch (err) {
               form.append("images", f);
