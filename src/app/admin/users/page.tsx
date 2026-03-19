@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 
 import { prisma } from "@/lib/db";
 import { requireAdmin } from "@/lib/admin";
+import { DeleteUserButton } from "./delete-user-button";
 
 export default async function AdminUsersPage({
   searchParams,
@@ -57,6 +58,21 @@ export default async function AdminUsersPage({
     redirect("/admin/users?ok=1");
   }
 
+  async function deleteUser(formData: FormData) {
+    "use server";
+    const admin = await requireAdmin();
+    if (!admin.ok) redirect("/");
+
+    const userId = String(formData.get("userId") ?? "");
+    if (!userId) return;
+
+    await prisma.user.delete({
+      where: { id: userId },
+    });
+
+    redirect("/admin/users?ok=deleted");
+  }
+
   return (
     <div className="grid gap-6">
       <header className="rounded-3xl border bg-white p-6">
@@ -93,6 +109,10 @@ export default async function AdminUsersPage({
           <div className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-900">
             パスワードを更新しました。
           </div>
+        ) : sp.ok === "deleted" ? (
+          <div className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-900">
+            ユーザーを完全に削除しました。
+          </div>
         ) : sp.error === "invalid" ? (
           <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 p-3 text-sm text-red-900">
             入力が不正です（パスワードは6文字以上）。
@@ -117,16 +137,22 @@ export default async function AdminUsersPage({
                     <div className="mt-1 text-xs text-zinc-400">{u.id}</div>
                   </div>
 
-                  <form action={resetPassword} className="flex flex-wrap items-end gap-2">
-                    <input type="hidden" name="userId" value={u.id} />
-                    <label className="grid gap-1">
-                      <span className="text-xs text-zinc-600">新パスワード</span>
-                      <input name="newPassword" className="w-56 rounded-xl border px-3 py-2 text-sm" placeholder="6文字以上" />
-                    </label>
-                    <button className="rounded-xl border px-3 py-2 text-sm hover:bg-zinc-50" type="submit">
-                      再設定
-                    </button>
-                  </form>
+                  <div className="flex flex-wrap items-end gap-2">
+                    <form action={resetPassword} className="flex flex-wrap items-end gap-2">
+                      <input type="hidden" name="userId" value={u.id} />
+                      <label className="grid gap-1">
+                        <span className="text-xs text-zinc-600">新パスワード</span>
+                        <input name="newPassword" required className="w-56 rounded-xl border px-3 py-2 text-sm" placeholder="6文字以上" />
+                      </label>
+                      <button className="rounded-xl border px-3 py-2 text-sm hover:bg-zinc-50" type="submit">
+                        再設定
+                      </button>
+                    </form>
+                    <form action={deleteUser}>
+                      <input type="hidden" name="userId" value={u.id} />
+                      <DeleteUserButton />
+                    </form>
+                  </div>
                 </div>
               </li>
             ))}
