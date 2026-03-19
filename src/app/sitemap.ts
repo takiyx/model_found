@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db";
 import { siteUrl } from "@/lib/site";
 import { parseTags, normalizeTag } from "@/lib/upload";
 import { FEATURED_TAGS } from "@/lib/curation";
+import { articles } from "@/lib/articles";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -13,6 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${base}/`, lastModified: now, changeFrequency: "daily", priority: 1 },
+    { url: `${base}/articles`, lastModified: now, changeFrequency: "daily", priority: 0.8 },
     { url: `${base}/rules`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/tags`, lastModified: now, changeFrequency: "daily", priority: 0.7 },
 
@@ -72,5 +74,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...tagRoutes, ...postRoutes];
+  const articleRoutes: MetadataRoute.Sitemap = articles.map((a) => ({
+    url: `${base}/articles/${a.slug}`,
+    lastModified: new Date(a.publishedAt),
+    changeFrequency: "weekly",
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...tagRoutes, ...postRoutes, ...articleRoutes];
 }

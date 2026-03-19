@@ -74,6 +74,9 @@ export default function RootLayout({
                   18歳未満の方はご利用いただけません。
                 </p>
                 <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs">
+                  <a className="hover:text-zinc-900 underline-offset-2 hover:underline font-bold text-zinc-700" href="/articles">
+                    コラム
+                  </a>
                   <a className="hover:text-zinc-900 underline-offset-2 hover:underline" href="/rules">
                     ルール
                   </a>
