@@ -110,6 +110,8 @@ model User {
   portfolioText   String      @default("")
   // JSON string array of image URLs (local uploads)
   portfolioImages String      @default("[]")
+  isPortfolioPrivate Boolean  @default(false)
+  portfolioPassword  String?
 
   // Shooting conditions (for trust / clarity)
   shootOkText String @default("")

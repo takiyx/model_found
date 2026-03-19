@@ -23,6 +23,8 @@ export default async function ProfileSettingsPage() {
       xHandle: true,
       portfolioText: true,
       portfolioImages: true,
+      isPortfolioPrivate: true,
+      portfolioPassword: true,
       shootOkText: true,
       shootNgText: true,
     },

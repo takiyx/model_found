@@ -21,6 +21,8 @@ const schema = z.object({
   xHandle: z.string().max(50).optional().default(""),
   portfolioText: z.string().max(2000).optional().default(""),
   portfolioImages: z.string().max(5000).optional().default("[]"),
+  isPortfolioPrivate: z.boolean().optional().default(false),
+  portfolioPassword: z.string().max(100).optional().nullable(),
 
   shootOkText: z.string().max(2000).optional().default(""),
   shootNgText: z.string().max(2000).optional().default(""),
@@ -58,6 +60,8 @@ export async function PUT(req: Request) {
       xHandle: parsed.data.xHandle,
       portfolioText: parsed.data.portfolioText,
       portfolioImages: parsed.data.portfolioImages,
+      isPortfolioPrivate: parsed.data.isPortfolioPrivate,
+      portfolioPassword: parsed.data.portfolioPassword,
       shootOkText: parsed.data.shootOkText,
       shootNgText: parsed.data.shootNgText,
     },

@@ -8,6 +8,7 @@ import { PostCard } from "@/components/post-card";
 import { getSession } from "@/lib/session";
 import { BlockButton } from "@/components/block-button";
 import { ImageGallery } from "@/components/image-gallery";
+import { LockedGallery } from "@/components/locked-gallery";
 import Image from "next/image";
 import { BadgeCheck } from "lucide-react";
 
@@ -73,6 +74,7 @@ export default async function UserPage({
       portfolioImages: true,
       shootOkText: true,
       shootNgText: true,
+      isPortfolioPrivate: true,
       isVerified: true,
       createdAt: true,
     },
@@ -254,7 +256,12 @@ export default async function UserPage({
 
           {portfolioImages.length > 0 ? (
             <div className="mt-6">
-              <ImageGallery images={portfolioImages} />
+              <LockedGallery 
+                userId={user.id} 
+                images={portfolioImages} 
+                isPrivate={user.isPortfolioPrivate} 
+                isMe={isMe} 
+              />
             </div>
           ) : null}
         </section>

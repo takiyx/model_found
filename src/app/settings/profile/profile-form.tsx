@@ -24,6 +24,8 @@ export function ProfileForm({
     xHandle: string;
     portfolioText: string;
     portfolioImages: string;
+    isPortfolioPrivate: boolean;
+    portfolioPassword: string | null;
     shootOkText: string;
     shootNgText: string;
   };
@@ -48,6 +50,8 @@ export function ProfileForm({
   const [portfolioImages, setPortfolioImages] = useState<string[]>(
     user.portfolioImages ? (JSON.parse(user.portfolioImages) as string[]) : []
   );
+  const [isPortfolioPrivate, setIsPortfolioPrivate] = useState(user.isPortfolioPrivate);
+  const [portfolioPassword, setPortfolioPassword] = useState(user.portfolioPassword || "");
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -83,6 +87,8 @@ export function ProfileForm({
             xHandle,
             portfolioText,
             portfolioImages: JSON.stringify(portfolioImages),
+            isPortfolioPrivate,
+            portfolioPassword: portfolioPassword ? portfolioPassword : null,
             shootOkText,
             shootNgText,
           }),
@@ -244,6 +250,34 @@ export function ProfileForm({
               placeholder="作風、実績、希望など"
             />
           </label>
+
+          <div className="mt-2 rounded-xl bg-rose-50 p-4 border border-rose-100 grid gap-3">
+            <label className="flex items-center gap-2 cursor-pointer select-none">
+              <input 
+                type="checkbox" 
+                checked={isPortfolioPrivate} 
+                onChange={(e) => setIsPortfolioPrivate(e.target.checked)}
+                className="w-4 h-4 text-rose-600 border-gray-300 rounded focus:ring-rose-500"
+              />
+              <span className="text-sm font-bold text-rose-900">🔐 ポートフォリオを鍵付き（シークレット）で公開する</span>
+            </label>
+            {isPortfolioPrivate && (
+              <label className="grid gap-1 pl-6">
+                <span className="text-xs font-semibold text-rose-800">閲覧パスワード（解除用の合言葉）</span>
+                <input
+                  type="text"
+                  className="rounded-lg border border-rose-200 px-3 py-1.5 text-sm"
+                  value={portfolioPassword}
+                  onChange={(e) => setPortfolioPassword(e.target.value)}
+                  placeholder="例: model2026"
+                  required={isPortfolioPrivate}
+                />
+                <span className="text-[11px] text-rose-600">
+                  ※ 写真は全面モザイクがかかります。このパスワードを知っているカメラマンだけが高画質で閲覧できます。（身バレ防止に最適）
+                </span>
+              </label>
+            )}
+          </div>
 
           <PortfolioUploader
             initialUrls={portfolioImages}
