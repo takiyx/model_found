@@ -29,7 +29,8 @@ export const metadata: Metadata = {
     default: "Model Find",
     template: "%s | Model Find",
   },
-  description: "モデルと撮影者をつなぐ、シンプルなマッチング掲示板（デモ）",
+  description: "モデルとカメラマンをつなぐ、完全無料のポートレート撮影・被写体マッチング掲示板です。全国の撮影案件、相互無償、有償依頼を簡単に探せます。",
+  keywords: ["ポートレート", "モデル募集", "被写体募集", "カメラマン", "撮影マッチング", "相互無償", "Model Find"],
   alternates: {
     canonical: "/",
   },
@@ -37,14 +38,14 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Model Find",
     title: "Model Find",
-    description: "モデルと撮影者をつなぐ、シンプルなマッチング掲示板（デモ）",
+    description: "モデルとカメラマンをつなぐ、完全無料のポートレート撮影・被写体マッチング掲示板です。全国の撮影案件、相互無償、有償依頼を簡単に探せます。",
     url: "/",
     locale: "ja_JP",
   },
   twitter: {
     card: "summary_large_image",
     title: "Model Find",
-    description: "モデルと撮影者をつなぐ、シンプルなマッチング掲示板（デモ）",
+    description: "モデルとカメラマンをつなぐ、完全無料のポートレート撮影・被写体マッチング掲示板です。全国の撮影案件、相互無償、有償依頼を簡単に探せます。",
   },
 };
 

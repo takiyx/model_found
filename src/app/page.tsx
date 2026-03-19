@@ -39,7 +39,7 @@ export async function generateMetadata({
   });
 
   return {
-    title: "掲示板（最新の募集）",
+    title: "Model Find | モデルとカメラマンの無料マッチング掲示板",
     description:
       "東京・埼玉・千葉などで、モデル/撮影者の募集を条件で絞り込み。写真付き投稿や報酬ありでも探せます。",
     alternates: { canonical: "/" },

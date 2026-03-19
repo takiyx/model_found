@@ -1,11 +1,49 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { prefectureLabels } from "@/lib/prefectures";
+import { absoluteUrl } from "@/lib/site";
 import { PostCard } from "@/components/post-card";
 import { getSession } from "@/lib/session";
 import { BlockButton } from "@/components/block-button";
 import { ImageGallery } from "@/components/image-gallery";
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const user = await prisma.user.findUnique({
+    where: { id },
+    select: { displayName: true, bio: true, avatarUrl: true },
+  });
+
+  if (!user) {
+    return { title: "User Not Found" };
+  }
+
+  const title = `${user.displayName}のプロフィール`;
+  const desc = user.bio ? user.bio.replace(/\s+/g, " ").trim().slice(0, 160) : `${user.displayName}のプロフィールや過去の募集をModel Findでチェック。`;
+  const url = absoluteUrl(`/u/${id}`);
+  const image = user.avatarUrl || undefined;
+
+  return {
+    title,
+    description: desc,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "profile",
+      url,
+      title,
+      description: desc,
+      images: image ? [{ url: image }] : undefined,
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description: desc,
+      images: image ? [image] : undefined,
+    },
+  };
+}
 
 export default async function UserPage({
   params,
