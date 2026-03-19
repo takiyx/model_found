@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 
 export type GalleryImage = {
   id: string;
@@ -53,12 +54,13 @@ export function ImageGallery({ images }: { images: GalleryImage[] }) {
             onClick={() => setOpenIndex(idx)}
             className="group relative overflow-hidden rounded-3xl border bg-zinc-100 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-md"
           >
-            <div className="aspect-[4/3] w-full">
-              <img
+            <div className="relative aspect-[4/3] w-full">
+              <Image
                 src={img.url}
                 alt={img.alt || ""}
-                className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
-                loading="lazy"
+                fill
+                unoptimized
+                className="object-cover transition duration-300 group-hover:scale-[1.02]"
               />
             </div>
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0 opacity-0 transition group-hover:opacity-100" />

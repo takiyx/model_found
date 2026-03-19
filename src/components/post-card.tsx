@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import { Prefecture } from "@prisma/client";
 import { prefectureLabels } from "@/lib/prefectures";
@@ -50,11 +51,12 @@ export function PostCard({
       <Link href={`/posts/${post.id}`} className="flex h-full flex-col">
         <div className="relative aspect-[4/3] w-full overflow-hidden bg-zinc-100">
           {cover ? (
-            <img
+            <Image
               src={cover.url}
               alt={cover.alt || ""}
-              className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
-              loading="lazy"
+              fill
+              unoptimized
+              className="object-cover transition duration-300 group-hover:scale-[1.02]"
             />
           ) : (
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zinc-50 via-zinc-100 to-zinc-200" />

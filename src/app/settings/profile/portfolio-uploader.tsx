@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import imageCompression from "browser-image-compression";
+import Image from "next/image";
 
 export function PortfolioUploader({
   initialUrls,
@@ -70,8 +71,8 @@ export function PortfolioUploader({
       {initialUrls.length ? (
         <div className="grid grid-cols-3 gap-2">
           {initialUrls.slice(0, 9).map((u) => (
-            <div key={u} className="aspect-square overflow-hidden rounded-xl border bg-zinc-100">
-              <img src={u} alt="" className="h-full w-full object-cover" />
+            <div key={u} className="relative aspect-square overflow-hidden rounded-xl border bg-zinc-100">
+              <Image unoptimized fill src={u} alt="" className="object-cover" />
             </div>
           ))}
         </div>

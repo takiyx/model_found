@@ -4,6 +4,36 @@ import { prisma } from "@/lib/db";
 import { parseRegion, regionLabel } from "@/lib/regions";
 import { PostCard } from "@/components/post-card";
 import { getSession } from "@/lib/session";
+import type { Metadata } from "next";
+import { absoluteUrl } from "@/lib/site";
+
+export async function generateMetadata({ params }: { params: Promise<{ region: string }> }): Promise<Metadata> {
+  const { region: regionParam } = await params;
+  const region = parseRegion(regionParam);
+  if (!region) return { title: "エリア" };
+  
+  const label = regionLabel(region);
+  const title = `${label}のポートレートモデル・被写体募集 | Model Find`;
+  const description = `${label}で撮影できるモデル・カメラマンの募集一覧です。相互無償、交通費支給などの条件で探せます。`;
+  const url = absoluteUrl(`/pg/${regionParam}`);
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  };
+}
 
 export default async function RegionPage({
   params,

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import imageCompression from "browser-image-compression";
+import Image from "next/image";
 
 export function AvatarUploader({
   initialUrl,
@@ -17,9 +18,9 @@ export function AvatarUploader({
   return (
     <div className="grid gap-3">
       <div className="flex items-center gap-4">
-        <div className="h-16 w-16 overflow-hidden rounded-2xl border bg-zinc-100">
+        <div className="relative h-16 w-16 overflow-hidden rounded-2xl border bg-zinc-100">
           {initialUrl ? (
-            <img src={initialUrl} alt="" className="h-full w-full object-cover" />
+            <Image unoptimized fill src={initialUrl} alt="" className="object-cover" />
           ) : null}
         </div>
 

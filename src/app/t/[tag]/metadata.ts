@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import { absoluteUrl } from "@/lib/site";
 
 export function generateTagMetadata(tag: string, count?: number): Metadata {
-  const title = `#${tag} の募集`;
+  const title = `${tag}のポートレートモデル・カメラマン募集 | Model Find`;
   const desc =
     count != null
-      ? `「${tag}」の投稿一覧（${count}件）。モデル/撮影者の募集を探せます。`
-      : `「${tag}」の投稿一覧。モデル/撮影者の募集を探せます。`;
+      ? `「${tag}」に関するモデル・カメラマンの募集一覧（${count}件）。相互无償や有償などの条件で最新の投稿から探せます。`
+      : `「${tag}」に関するモデル・カメラマンの募集一覧。最新の投稿から条件に合う相手を見つけましょう。`;
   const url = absoluteUrl(`/t/${encodeURIComponent(tag)}`);
 
   return {

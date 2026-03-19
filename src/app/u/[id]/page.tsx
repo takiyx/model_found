@@ -8,6 +8,7 @@ import { PostCard } from "@/components/post-card";
 import { getSession } from "@/lib/session";
 import { BlockButton } from "@/components/block-button";
 import { ImageGallery } from "@/components/image-gallery";
+import Image from "next/image";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
@@ -130,9 +131,9 @@ export default async function UserPage({
       <header className="rounded-3xl border bg-white p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="flex items-start gap-4">
-            <div className="h-20 w-20 overflow-hidden rounded-3xl border bg-zinc-100">
+            <div className="relative h-20 w-20 overflow-hidden rounded-3xl border bg-zinc-100">
               {user.avatarUrl ? (
-                <img src={user.avatarUrl} alt="" className="h-full w-full object-cover" />
+                <Image unoptimized fill src={user.avatarUrl} alt="" className="object-cover" />
               ) : null}
             </div>
             <div>
